@@ -298,243 +298,286 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
         <!-- Mercedes Citaro – Fischle Gruppe -->
         <svg class="bus-svg" viewBox="0 0 740 230" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="cBody" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#0F2840"/>
-              <stop offset="55%" stop-color="#0A1D30"/>
-              <stop offset="100%" stop-color="#06111F"/>
+            <!-- Upper body (window zone) dark gradient -->
+            <linearGradient id="cUpper" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0D1F34"/>
+              <stop offset="100%" stop-color="#070F1C"/>
             </linearGradient>
-            <linearGradient id="cRoof" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#152E48"/>
-              <stop offset="100%" stop-color="#0A1D30"/>
+            <!-- Lower body panel -->
+            <linearGradient id="cLower" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0A1A2C"/>
+              <stop offset="100%" stop-color="#050D18"/>
             </linearGradient>
+            <!-- Window glass -->
             <linearGradient id="cWin" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1E5A8A" stop-opacity="0.65"/>
-              <stop offset="45%" stop-color="#0D3055" stop-opacity="0.25"/>
-              <stop offset="100%" stop-color="#061525" stop-opacity="0.1"/>
+              <stop offset="0%" stop-color="#1E5A8A" stop-opacity="0.55"/>
+              <stop offset="35%" stop-color="#0E3560" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#061525" stop-opacity="0.08"/>
             </linearGradient>
-            <linearGradient id="cWinFront" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1A4E7A" stop-opacity="0.7"/>
-              <stop offset="100%" stop-color="#060E1A" stop-opacity="0.2"/>
+            <!-- Glass tint left side (inner reflection) -->
+            <linearGradient id="cWinRefl" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="rgba(41,130,180,0.12)"/>
+              <stop offset="40%" stop-color="rgba(41,130,180,0)"/>
             </linearGradient>
+            <!-- Front windshield -->
+            <linearGradient id="cWindshield" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1A4E7A" stop-opacity="0.65"/>
+              <stop offset="100%" stop-color="#060E1A" stop-opacity="0.15"/>
+            </linearGradient>
+            <!-- Headlight radial glow -->
             <radialGradient id="cHL" cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="#FFFDE8" stop-opacity="1"/>
-              <stop offset="60%" stop-color="#FFE060" stop-opacity="0.5"/>
+              <stop offset="0%" stop-color="#FFFDE8"/>
+              <stop offset="60%" stop-color="#FFE060" stop-opacity="0.45"/>
               <stop offset="100%" stop-color="#FFAA00" stop-opacity="0"/>
             </radialGradient>
+            <!-- Ground glow -->
             <radialGradient id="cGround" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#29ABE2" stop-opacity="0.12"/>
+              <stop offset="0%" stop-color="#29ABE2" stop-opacity="0.13"/>
               <stop offset="100%" stop-color="#29ABE2" stop-opacity="0"/>
             </radialGradient>
-            <filter id="fGlow">
-              <feGaussianBlur stdDeviation="3" result="blur"/>
-              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-            </filter>
           </defs>
 
-          <!-- Ground shadow + glow -->
-          <ellipse cx="365" cy="222" rx="340" ry="10" fill="rgba(0,0,0,0.55)"/>
-          <ellipse cx="365" cy="218" rx="310" ry="16" fill="url(#cGround)"/>
+          <!-- Ground shadow -->
+          <ellipse cx="368" cy="222" rx="325" ry="9" fill="rgba(0,0,0,0.5)"/>
+          <ellipse cx="368" cy="218" rx="295" ry="15" fill="url(#cGround)"/>
 
-          <!-- ====== MAIN CITARO BODY ====== -->
-          <!-- Profile: Citaro has characteristic tall windshield front, slight raised roofline -->
-          <path d="M44,186 L44,56 Q46,26 80,22 L630,22 Q658,22 672,38 L686,62 L690,90 L690,186 Z" fill="url(#cBody)"/>
+          <!-- ====== BODY BASE (full outline, Citaro rectangular profile) ====== -->
+          <!-- Outer body – slightly rounded corners, very flat roof (Citaro style) -->
+          <path d="M36,179 L36,34 Q36,17 54,16 L646,16 Q664,16 674,28 L686,52 L690,100 L690,179 Z" fill="url(#cUpper)"/>
 
-          <!-- Roof (slightly differentiated) -->
-          <path d="M44,34 L630,22 Q658,22 672,38 L686,62 L686,42 Q672,26 658,24 L80,24 Q52,24 44,34 Z" fill="url(#cRoof)"/>
+          <!-- Roof detail (very slight taper) -->
+          <rect x="54" y="14" width="580" height="4" rx="2" fill="#0D2040" opacity="0.6"/>
 
-          <!-- Roof equipment (A/C unit, roof rail) -->
-          <rect x="100" y="16" width="360" height="8" rx="3" fill="#0A1828" stroke="#1A3550" stroke-width="0.8" opacity="0.9"/>
-          <rect x="140" y="14" width="280" height="5" rx="2" fill="#132038" opacity="0.8"/>
-          <!-- Lower body skirt (darker underbelly) -->
-          <rect x="44" y="152" width="646" height="34" rx="0" fill="#060F1A"/>
-          <!-- Belt line crease - adds realism and depth to bus profile -->
-          <line x1="44" y1="93" x2="541" y2="93" stroke="rgba(20,50,80,0.8)" stroke-width="1.5"/>
-          <!-- Dark shadow at bottom of body panel (adds depth) -->
-          <rect x="44" y="145" width="497" height="7" fill="rgba(0,0,0,0.15)"/>
+          <!-- Roof A/C unit (flat box on roof – typical Citaro) -->
+          <rect x="120" y="10" width="340" height="7" rx="2" fill="#0A1828" stroke="#1A3450" stroke-width="0.7"/>
+          <rect x="160" y="9" width="260" height="4" rx="1" fill="#122035" opacity="0.8"/>
+          <!-- Roof vents -->
+          <rect x="140" y="11" width="10" height="4" rx="1" fill="#091525"/>
+          <rect x="200" y="11" width="10" height="4" rx="1" fill="#091525"/>
+          <rect x="260" y="11" width="10" height="4" rx="1" fill="#091525"/>
+          <rect x="320" y="11" width="10" height="4" rx="1" fill="#091525"/>
+          <rect x="380" y="11" width="10" height="4" rx="1" fill="#091525"/>
+          <rect x="430" y="11" width="10" height="4" rx="1" fill="#091525"/>
 
-          <!-- ====== WINDOWS ====== -->
-          <!-- Citaro panoramic windows – tall and wide -->
-          <!-- Win 1 (rear) -->
-          <rect x="62" y="30" width="74" height="64" rx="4" fill="#030C16"/>
-          <rect x="62" y="30" width="74" height="64" rx="4" fill="url(#cWin)"/>
-          <rect x="64" y="32" width="32" height="60" rx="3" fill="rgba(41,130,180,0.07)"/>
-          <line x1="99" y1="30" x2="99" y2="94" stroke="#0A1D30" stroke-width="2.5"/>
+          <!-- ====== WINDOW BAND (full height windows, Citaro style) ====== -->
+          <!-- Dark window zone background -->
+          <rect x="36" y="20" width="610" height="104" fill="#050C17"/>
 
-          <!-- Win 2 -->
-          <rect x="145" y="30" width="74" height="64" rx="4" fill="#030C16"/>
-          <rect x="145" y="30" width="74" height="64" rx="4" fill="url(#cWin)"/>
-          <rect x="147" y="32" width="32" height="60" rx="3" fill="rgba(41,130,180,0.07)"/>
-          <line x1="182" y1="30" x2="182" y2="94" stroke="#0A1D30" stroke-width="2.5"/>
+          <!-- ====== REAR SECTION (x=36–116): rear door as glass ====== -->
+          <!-- Rear double door glass (same height as windows) -->
+          <rect x="40" y="24" width="76" height="96" rx="2" fill="#030A14"/>
+          <rect x="40" y="24" width="76" height="96" rx="2" fill="url(#cWin)"/>
+          <line x1="78" y1="24" x2="78" y2="120" stroke="#0A1D30" stroke-width="2.5"/>
+          <!-- Door glass reflection -->
+          <rect x="42" y="26" width="18" height="92" rx="1" fill="url(#cWinRefl)"/>
 
-          <!-- Win 3 -->
-          <rect x="228" y="30" width="74" height="64" rx="4" fill="#030C16"/>
-          <rect x="228" y="30" width="74" height="64" rx="4" fill="url(#cWin)"/>
-          <rect x="230" y="32" width="32" height="60" rx="3" fill="rgba(41,130,180,0.07)"/>
-          <line x1="265" y1="30" x2="265" y2="94" stroke="#0A1D30" stroke-width="2.5"/>
+          <!-- ====== WINDOWS: Rear-door to Middle-door (x=120–354) ====== -->
+          <!-- 3 windows, each 74 wide, pillars 4 wide -->
+          <!-- Win A: x=120–194 -->
+          <rect x="120" y="24" width="74" height="96" rx="2" fill="#030A14"/>
+          <rect x="120" y="24" width="74" height="96" rx="2" fill="url(#cWin)"/>
+          <rect x="122" y="26" width="20" height="92" rx="1" fill="url(#cWinRefl)"/>
 
-          <!-- Win 4 -->
-          <rect x="311" y="30" width="74" height="64" rx="4" fill="#030C16"/>
-          <rect x="311" y="30" width="74" height="64" rx="4" fill="url(#cWin)"/>
-          <rect x="313" y="32" width="32" height="60" rx="3" fill="rgba(41,130,180,0.07)"/>
-          <line x1="348" y1="30" x2="348" y2="94" stroke="#0A1D30" stroke-width="2.5"/>
+          <!-- Win B: x=198–272 -->
+          <rect x="198" y="24" width="74" height="96" rx="2" fill="#030A14"/>
+          <rect x="198" y="24" width="74" height="96" rx="2" fill="url(#cWin)"/>
+          <rect x="200" y="26" width="20" height="92" rx="1" fill="url(#cWinRefl)"/>
 
-          <!-- Win 5 -->
-          <rect x="394" y="30" width="74" height="64" rx="4" fill="#030C16"/>
-          <rect x="394" y="30" width="74" height="64" rx="4" fill="url(#cWin)"/>
-          <rect x="396" y="32" width="32" height="60" rx="3" fill="rgba(41,130,180,0.07)"/>
-          <line x1="431" y1="30" x2="431" y2="94" stroke="#0A1D30" stroke-width="2.5"/>
+          <!-- Win C: x=276–350 -->
+          <rect x="276" y="24" width="74" height="96" rx="2" fill="#030A14"/>
+          <rect x="276" y="24" width="74" height="96" rx="2" fill="url(#cWin)"/>
+          <rect x="278" y="26" width="20" height="92" rx="1" fill="url(#cWinRefl)"/>
 
-          <!-- Win 6 (slightly narrower near driver area) -->
-          <rect x="477" y="30" width="60" height="64" rx="4" fill="#030C16"/>
-          <rect x="477" y="30" width="60" height="64" rx="4" fill="url(#cWin)"/>
+          <!-- ====== MIDDLE DOOR (x=354–444): glass ====== -->
+          <rect x="358" y="24" width="82" height="96" rx="2" fill="#030A14"/>
+          <rect x="358" y="24" width="82" height="96" rx="2" fill="url(#cWin)"/>
+          <line x1="399" y1="24" x2="399" y2="120" stroke="#0A1D30" stroke-width="2.5"/>
+          <rect x="360" y="26" width="18" height="92" rx="1" fill="url(#cWinRefl)"/>
 
-          <!-- ====== WINDSHIELD (Citaro – huge glass face) ====== -->
-          <path d="M541,24 L632,24 Q658,24 672,40 L686,64 L690,140 L541,140 Z" fill="#020A14"/>
-          <path d="M543,26 L630,26 Q654,26 668,41 L681,64 L681,138 L543,138 Z" fill="url(#cWinFront)"/>
-          <!-- A-pillar center divider -->
-          <line x1="610" y1="24" x2="614" y2="140" stroke="#0E2030" stroke-width="4"/>
-          <!-- Windshield wipers (subtle) -->
-          <line x1="545" y1="136" x2="605" y2="100" stroke="#0E2030" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-          <line x1="618" y1="136" x2="678" y2="88" stroke="#0E2030" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-          <!-- Dashboard interior glow -->
-          <rect x="543" y="120" width="137" height="20" fill="#030D18"/>
-          <rect x="545" y="122" width="133" height="14" rx="2" fill="#091A28" opacity="0.8"/>
-          <!-- Dashboard lights dots -->
-          <circle cx="558" cy="129" r="2" fill="#29ABE2" opacity="0.5"/>
-          <circle cx="567" cy="129" r="2" fill="#29ABE2" opacity="0.3"/>
-          <circle cx="676" cy="129" r="2" fill="#F5C842" opacity="0.4"/>
+          <!-- ====== WINDOWS: Middle-door to Front-door (x=448–578) ====== -->
+          <!-- 2 windows, each 62 wide, pillar 4 -->
+          <!-- Win D: x=448–510 -->
+          <rect x="448" y="24" width="62" height="96" rx="2" fill="#030A14"/>
+          <rect x="448" y="24" width="62" height="96" rx="2" fill="url(#cWin)"/>
+          <rect x="450" y="26" width="16" height="92" rx="1" fill="url(#cWinRefl)"/>
+
+          <!-- Win E: x=514–576 -->
+          <rect x="514" y="24" width="62" height="96" rx="2" fill="#030A14"/>
+          <rect x="514" y="24" width="62" height="96" rx="2" fill="url(#cWin)"/>
+          <rect x="516" y="26" width="16" height="92" rx="1" fill="url(#cWinRefl)"/>
+
+          <!-- ====== FRONT DOOR (x=578–648): glass, single ====== -->
+          <rect x="582" y="24" width="62" height="96" rx="2" fill="#030A14"/>
+          <rect x="582" y="24" width="62" height="96" rx="2" fill="url(#cWin)"/>
+          <rect x="584" y="26" width="16" height="92" rx="1" fill="url(#cWinRefl)"/>
+
+          <!-- ====== WINDSHIELD (x=648–690) ====== -->
+          <!-- Windshield frame -->
+          <path d="M648,20 L670,20 Q682,20 688,34 L690,56 L690,140 L648,140 Z" fill="#020810"/>
+          <!-- Glass -->
+          <path d="M650,22 L668,22 Q679,22 685,35 L687,57 L687,138 L650,138 Z" fill="url(#cWindshield)"/>
+          <!-- Windshield wiper -->
+          <line x1="652" y1="136" x2="684" y2="104" stroke="#091825" stroke-width="2.2" stroke-linecap="round" opacity="0.6"/>
+          <!-- A-pillar -->
+          <rect x="646" y="20" width="4" height="120" fill="#0A1F35" opacity="0.9"/>
+          <!-- Dashboard glow -->
+          <rect x="650" y="120" width="38" height="18" fill="#030D18"/>
+          <rect x="652" y="122" width="34" height="12" rx="2" fill="#081828" opacity="0.85"/>
+          <circle cx="659" cy="128" r="1.8" fill="#29ABE2" opacity="0.5"/>
+          <circle cx="666" cy="128" r="1.8" fill="#29ABE2" opacity="0.3"/>
+          <circle cx="682" cy="128" r="1.6" fill="#F5C842" opacity="0.4"/>
 
           <!-- ====== DESTINATION DISPLAY ====== -->
-          <rect x="541" y="12" width="148" height="14" rx="3" fill="#010810"/>
-          <rect x="543" y="13" width="144" height="11" rx="2" fill="#000C16"/>
-          <text id="destText" x="615" y="22" font-family="'Courier New',monospace" font-size="7.5" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="1.2" opacity="0.9">LINIE 116 · PLOCHINGEN HBF</text>
+          <rect x="580" y="11" width="108" height="13" rx="2" fill="#010810"/>
+          <rect x="582" y="12" width="104" height="10" rx="1.5" fill="#000C18"/>
+          <text id="destText" x="634" y="20.5" font-family="'Courier New',monospace" font-size="7" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="1" opacity="0.9">LINIE 116 · PLOCHINGEN</text>
+
+          <!-- ====== BELT LINE (horizontal stripe separating upper/lower) ====== -->
+          <!-- Structural belt line between window zone and lower panel -->
+          <rect x="36" y="123" width="614" height="3" fill="#29ABE2"/>
+          <rect x="36" y="123" width="614" height="0.8" fill="rgba(255,255,255,0.18)"/>
+          <!-- Shadow below belt line -->
+          <rect x="36" y="126" width="614" height="5" fill="rgba(0,0,0,0.18)"/>
+
+          <!-- Lower body panel -->
+          <rect x="36" y="126" width="614" height="54" fill="url(#cLower)"/>
 
           <!-- ====== FISCHLE BRANDING ====== -->
-          <!-- Thin blue accent stripe just below windows -->
-          <rect x="44" y="93" width="497" height="3.5" fill="#29ABE2" opacity="0.85"/>
-          <!-- Thin blue waist stripe (classic bus styling) -->
-          <rect x="44" y="148" width="497" height="5" fill="#29ABE2"/>
-          <!-- Light highlight on top of waist stripe -->
-          <rect x="44" y="148" width="497" height="1" fill="rgba(255,255,255,0.2)"/>
-          <!-- FISCHLE – large white text, centered between front door (x=120) and middle door (x=346) -->
-          <!-- Center = (120+346)/2 = 233, space = 226 units, text ~170 units wide — fits perfectly -->
-          <text x="233" y="133" font-family="'Barlow Condensed',sans-serif" font-size="40" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="4" opacity="0.97">FISCHLE</text>
-          <!-- GRUPPE – smaller blue text below -->
-          <text x="233" y="146" font-family="'Barlow Condensed',sans-serif" font-size="8" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="5">G R U P P E</text>
-          <!-- Secondary blue accent strip in rear zone x=417-541 -->
-          <rect x="420" y="96" width="120" height="52" rx="0" fill="rgba(41,171,226,0.04)"/>
-          <text x="480" y="128" font-family="'Barlow Condensed',sans-serif" font-size="9" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="2" opacity="0.7">EST. 1932</text>
+          <!-- Centered between rear door (x=116) and middle door (x=354) → center x=235 -->
+          <!-- font-size=40 Barlow Condensed 900: ~165 units wide, fits in 238-unit space -->
+          <text x="235" y="160" font-family="'Barlow Condensed',sans-serif" font-size="42" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="5" opacity="0.98">FISCHLE</text>
+          <!-- Thin Fischle blue underline accent -->
+          <line x1="148" y1="166" x2="322" y2="166" stroke="#29ABE2" stroke-width="1.5" opacity="0.6"/>
+          <!-- GRUPPE -->
+          <text x="235" y="176" font-family="'Barlow Condensed',sans-serif" font-size="8" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="6">G R U P P E</text>
+          <!-- EST. 1932 subtle detail in rear panel zone -->
+          <text x="86" y="160" font-family="'Barlow Condensed',sans-serif" font-size="8" font-weight="600" fill="rgba(41,171,226,0.4)" text-anchor="middle" letter-spacing="1.5">EST.</text>
+          <text x="86" y="170" font-family="'Barlow Condensed',sans-serif" font-size="10" font-weight="800" fill="rgba(41,171,226,0.45)" text-anchor="middle" letter-spacing="1">1932</text>
 
-          <!-- ====== FRONT DOOR (Citaro fold-out) ====== -->
-          <g id="frontDoorGroup" class="">
-            <!-- Door frame -->
-            <rect x="44" y="94" width="2" height="58" fill="#29ABE2" opacity="0.5"/>
-            <rect x="44" y="151" width="75" height="1" fill="#29ABE2" opacity="0.3"/>
+          <!-- ====== FRONT DOOR ANIMATED (folds open) ====== -->
+          <g id="frontDoorGroup">
+            <!-- Door frame highlight -->
+            <rect x="578" y="126" width="1.5" height="54" fill="#29ABE2" opacity="0.4"/>
             <!-- Left panel -->
-            <rect id="doorFrontL" x="46" y="94" width="36" height="58" rx="2" fill="#091825" stroke="#1A3A55" stroke-width="1" class="bus-door bus-door-l"/>
+            <rect id="doorFrontL" x="580" y="24" width="32" height="156" rx="1" fill="#060F1C" stroke="#122030" stroke-width="0.8" class="bus-door bus-door-l"/>
             <!-- Right panel -->
-            <rect id="doorFrontR" x="82" y="94" width="36" height="58" rx="2" fill="#091825" stroke="#1A3A55" stroke-width="1" class="bus-door bus-door-r"/>
-            <!-- Door line between panels -->
-            <line x1="82" y1="94" x2="82" y2="152" stroke="#29ABE2" stroke-width="1" opacity="0.4"/>
-            <!-- Step indicator -->
-            <rect x="44" y="180" width="76" height="6" rx="0" fill="#29ABE2" opacity="0.15"/>
+            <rect id="doorFrontR" x="612" y="24" width="30" height="156" rx="1" fill="#060F1C" stroke="#122030" stroke-width="0.8" class="bus-door bus-door-r"/>
+            <!-- Center line -->
+            <line x1="612" y1="24" x2="612" y2="180" stroke="#29ABE2" stroke-width="0.8" opacity="0.35"/>
+            <!-- Step strip -->
+            <rect x="578" y="176" width="64" height="4" fill="#29ABE2" opacity="0.12"/>
           </g>
 
-          <!-- Middle door -->
-          <rect x="346" y="94" width="1.5" height="58" fill="#29ABE2" opacity="0.4"/>
-          <rect x="347" y="94" width="35" height="58" rx="2" fill="#091825" stroke="#1A3A55" stroke-width="0.8"/>
-          <rect x="382" y="94" width="35" height="58" rx="2" fill="#091825" stroke="#1A3A55" stroke-width="0.8"/>
-          <line x1="382" y1="94" x2="382" y2="152" stroke="#29ABE2" stroke-width="0.8" opacity="0.35"/>
+          <!-- Middle door (static, decorative) -->
+          <rect x="354" y="126" width="1.5" height="54" fill="#29ABE2" opacity="0.4"/>
+          <rect x="356" y="24" width="43" height="156" rx="1" fill="#060F1C" stroke="#0D1E30" stroke-width="0.7"/>
+          <rect x="399" y="24" width="43" height="156" rx="1" fill="#060F1C" stroke="#0D1E30" stroke-width="0.7"/>
+          <line x1="399" y1="24" x2="399" y2="180" stroke="#29ABE2" stroke-width="0.8" opacity="0.3"/>
 
-          <!-- ====== HEADLIGHTS (LED style, Mercedes Citaro front) ====== -->
-          <!-- DRL strip (modern LED) -->
-          <rect x="648" y="62" width="36" height="5" rx="2" fill="#FFE8A0" opacity="0.95" id="drl"/>
-          <rect x="648" y="70" width="36" height="5" rx="2" fill="#FFE8A0" opacity="0.6"/>
-          <!-- Main beam housing -->
-          <rect x="648" y="80" width="36" height="18" rx="3" fill="#FFE8A0" opacity="0.85" id="beam"/>
-          <!-- Headlight glow halos -->
-          <ellipse cx="666" cy="66" rx="26" ry="18" fill="url(#cHL)" opacity="0.35" class="hl-glow"/>
-          <ellipse cx="666" cy="90" rx="28" ry="22" fill="url(#cHL)" opacity="0.2" class="hl-glow"/>
-          <!-- Light beam (forward) -->
-          <path d="M684,70 L740,50 L740,115 L684,100 Z" fill="url(#cHL)" opacity="0.06" class="hl-glow"/>
+          <!-- Rear door (static) -->
+          <rect x="36" y="126" width="1.5" height="54" fill="#29ABE2" opacity="0.35"/>
+          <rect x="38" y="24" width="40" height="156" rx="1" fill="#060F1C" stroke="#0D1E30" stroke-width="0.7"/>
+          <rect x="78" y="24" width="40" height="156" rx="1" fill="#060F1C" stroke="#0D1E30" stroke-width="0.7"/>
+          <line x1="78" y1="24" x2="78" y2="180" stroke="#29ABE2" stroke-width="0.8" opacity="0.3"/>
 
-          <!-- ====== TAIL LIGHTS ====== -->
-          <!-- LED tail light cluster -->
-          <rect x="44" y="50" width="10" height="30" rx="2" fill="#8B0000" opacity="0.95"/>
-          <rect x="44" y="52" width="10" height="26" rx="2" fill="#CC1500" opacity="0.9"/>
+          <!-- ====== UNDERBODY SKIRT ====== -->
+          <rect x="36" y="178" width="654" height="4" rx="0" fill="#040B14"/>
+          <!-- Orange reflectors (like on real Citaro) -->
+          <rect x="65" y="168" width="12" height="5" rx="1" fill="#FF8800" opacity="0.7"/>
+          <rect x="200" y="168" width="12" height="5" rx="1" fill="#FF8800" opacity="0.6"/>
+          <rect x="340" y="168" width="12" height="5" rx="1" fill="#FF8800" opacity="0.6"/>
+          <rect x="480" y="168" width="12" height="5" rx="1" fill="#FF8800" opacity="0.6"/>
+          <!-- Blue reflector near doors -->
+          <rect x="576" y="168" width="10" height="5" rx="1" fill="#29ABE2" opacity="0.4"/>
+
+          <!-- ====== TAIL LIGHTS (rear left corner) ====== -->
+          <rect x="36" y="34" width="6" height="44" rx="2" fill="#8B0000" opacity="0.9"/>
           <!-- LED segments -->
-          <rect x="45" y="53" width="7" height="6" rx="1" fill="#FF2200" opacity="0.95"/>
-          <rect x="45" y="61" width="7" height="6" rx="1" fill="#FF2200" opacity="0.85"/>
-          <rect x="45" y="69" width="7" height="6" rx="1" fill="#FF2200" opacity="0.75"/>
-          <rect x="45" y="77" width="7" height="4" rx="1" fill="#FF6600" opacity="0.7"/>
-          <!-- Tail reflector -->
-          <rect x="44" y="83" width="10" height="10" rx="2" fill="#FF8800" opacity="0.5"/>
+          <rect x="37" y="36" width="4" height="8" rx="1" fill="#FF2200" opacity="0.95"/>
+          <rect x="37" y="46" width="4" height="8" rx="1" fill="#FF2200" opacity="0.85"/>
+          <rect x="37" y="56" width="4" height="8" rx="1" fill="#FF2200" opacity="0.75"/>
+          <rect x="37" y="66" width="4" height="6" rx="1" fill="#FF5500" opacity="0.65"/>
+          <!-- Rear indicator -->
+          <rect x="37" y="74" width="4" height="6" rx="1" fill="#FF8800" opacity="0.7"/>
           <!-- Glow -->
-          <ellipse cx="49" cy="65" rx="14" ry="20" fill="#CC0000" opacity="0.06"/>
+          <ellipse cx="39" cy="58" rx="12" ry="22" fill="#CC0000" opacity="0.05"/>
 
-          <!-- ====== UNDERBODY DETAILS ====== -->
-          <!-- Exhaust / underpanel detail -->
-          <rect x="44" y="184" width="646" height="4" rx="0" fill="#040C14"/>
-          <!-- Mirror on right -->
-          <rect x="684" y="50" width="12" height="8" rx="2" fill="#0F2030" stroke="#29ABE2" stroke-width="0.5" opacity="0.7"/>
-          <line x1="686" y1="50" x2="686" y2="42" stroke="#1A3A55" stroke-width="1.5"/>
+          <!-- ====== HEADLIGHTS (front right, Mercedes Citaro style) ====== -->
+          <!-- LED DRL strip (full width) -->
+          <rect x="648" y="58" width="38" height="4" rx="2" fill="#FFECB0" opacity="0.95" id="drl"/>
+          <!-- Main beam housing -->
+          <rect x="650" y="68" width="34" height="22" rx="3" fill="#FFE8A0" opacity="0.85" id="beam"/>
+          <!-- DRL below -->
+          <rect x="648" y="64" width="38" height="3" rx="1" fill="#FFECB0" opacity="0.6"/>
+          <!-- Glow halos -->
+          <ellipse cx="667" cy="62" rx="24" ry="14" fill="url(#cHL)" opacity="0.35" class="hl-glow"/>
+          <ellipse cx="667" cy="80" rx="26" ry="18" fill="url(#cHL)" opacity="0.2" class="hl-glow"/>
+          <!-- Light cone forward -->
+          <path d="M686,65 L740,44 L740,110 L686,96 Z" fill="url(#cHL)" opacity="0.055" class="hl-glow"/>
+          <!-- Rear-view mirror arm -->
+          <line x1="686" y1="46" x2="686" y2="38" stroke="#1A3050" stroke-width="2"/>
+          <rect x="680" y="35" width="14" height="8" rx="2" fill="#0F2030" stroke="#29ABE2" stroke-width="0.6" opacity="0.8"/>
 
-          <!-- ====== MERCEDES STAR (front) ====== -->
-          <g transform="translate(660,168)" opacity="0.55">
-            <circle r="7" fill="none" stroke="#29ABE2" stroke-width="1.2"/>
-            <circle r="2.5" fill="#29ABE2" opacity="0.6"/>
-            <line x1="0" y1="-7" x2="0" y2="-2.5" stroke="#29ABE2" stroke-width="1.2"/>
-            <line x1="0" y1="2.5" x2="0" y2="7" stroke="#29ABE2" stroke-width="1.2"/>
-            <line x1="6.06" y1="3.5" x2="2.17" y2="1.25" stroke="#29ABE2" stroke-width="1.2"/>
-            <line x1="-6.06" y1="3.5" x2="-2.17" y2="1.25" stroke="#29ABE2" stroke-width="1.2"/>
-            <line x1="6.06" y1="-3.5" x2="2.17" y2="-1.25" stroke="#29ABE2" stroke-width="1.2"/>
-            <line x1="-6.06" y1="-3.5" x2="-2.17" y2="-1.25" stroke="#29ABE2" stroke-width="1.2"/>
+          <!-- ====== MERCEDES STAR (front hub cap detail) ====== -->
+          <g transform="translate(666,174)" opacity="0.5">
+            <circle r="7" fill="none" stroke="#29ABE2" stroke-width="1.1"/>
+            <circle r="2.5" fill="#29ABE2" opacity="0.55"/>
+            <line x1="0" y1="-7" x2="0" y2="-2.5" stroke="#29ABE2" stroke-width="1.1"/>
+            <line x1="0" y1="2.5" x2="0" y2="7" stroke="#29ABE2" stroke-width="1.1"/>
+            <line x1="6.06" y1="3.5" x2="2.17" y2="1.25" stroke="#29ABE2" stroke-width="1.1"/>
+            <line x1="-6.06" y1="3.5" x2="-2.17" y2="1.25" stroke="#29ABE2" stroke-width="1.1"/>
+            <line x1="6.06" y1="-3.5" x2="2.17" y2="-1.25" stroke="#29ABE2" stroke-width="1.1"/>
+            <line x1="-6.06" y1="-3.5" x2="-2.17" y2="-1.25" stroke="#29ABE2" stroke-width="1.1"/>
           </g>
 
           <!-- ====== FRONT BUMPER ====== -->
-          <path d="M648,183 Q668,180 688,168 L690,186 L44,186 Z" fill="#060F1A"/>
-          <rect x="44" y="183" width="646" height="3" fill="#0A1825"/>
+          <path d="M648,177 Q662,174 680,162 L690,179 L36,179 Z" fill="#050D18"/>
+          <rect x="36" y="177" width="654" height="3" fill="#081520"/>
 
-          <!-- ====== WHEELS (6-spoke Citaro style) ====== -->
+          <!-- ====== WHEELS (6-spoke alloy, Citaro style) ====== -->
           <!-- Rear wheel -->
-          <g id="wheelRear" class="bus-wheel" style="transform-origin:128px 198px">
-            <circle cx="128" cy="198" r="28" fill="#080F18" stroke="#1A2E42" stroke-width="2"/>
-            <circle cx="128" cy="198" r="22" fill="#0A1620" stroke="#243E58" stroke-width="1.5"/>
-            <circle cx="128" cy="198" r="10" fill="#132030"/>
-            <circle cx="128" cy="198" r="5.5" fill="#29ABE2" opacity="0.85"/>
-            <circle cx="128" cy="198" r="3" fill="#1A3A55"/>
+          <g id="wheelRear" class="bus-wheel">
+            <!-- Tyre -->
+            <circle cx="152" cy="196" r="28" fill="#060D16" stroke="#132030" stroke-width="2"/>
+            <!-- Alloy rim -->
+            <circle cx="152" cy="196" r="22" fill="#0C1C2E" stroke="#1E3A55" stroke-width="1.5"/>
+            <!-- Center hub -->
+            <circle cx="152" cy="196" r="9" fill="#0F2035"/>
+            <circle cx="152" cy="196" r="5" fill="#29ABE2" opacity="0.8"/>
+            <circle cx="152" cy="196" r="2.8" fill="#142535"/>
             <!-- 6 spokes -->
-            <line x1="128" y1="172" x2="128" y2="184" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <line x1="128" y1="212" x2="128" y2="224" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <line x1="104" y1="184" x2="114" y2="191" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <line x1="142" y1="205" x2="152" y2="212" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <line x1="104" y1="212" x2="114" y2="205" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <line x1="142" y1="191" x2="152" y2="184" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <!-- Rim ring -->
-            <circle cx="128" cy="198" r="22" fill="none" stroke="#29ABE2" stroke-width="0.8" opacity="0.4"/>
+            <line x1="152" y1="170" x2="152" y2="183" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <line x1="152" y1="209" x2="152" y2="222" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <line x1="128" y1="182" x2="138" y2="189" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <line x1="166" y1="203" x2="176" y2="210" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <line x1="128" y1="210" x2="138" y2="203" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <line x1="166" y1="189" x2="176" y2="182" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <!-- Outer rim ring -->
+            <circle cx="152" cy="196" r="22" fill="none" stroke="#29ABE2" stroke-width="0.8" opacity="0.35"/>
+            <!-- Tyre wall detail -->
+            <circle cx="152" cy="196" r="27" fill="none" stroke="#0F1E2C" stroke-width="1.5"/>
           </g>
 
           <!-- Front wheel -->
-          <g id="wheelFront" class="bus-wheel" style="transform-origin:574px 198px">
-            <circle cx="574" cy="198" r="28" fill="#080F18" stroke="#1A2E42" stroke-width="2"/>
-            <circle cx="574" cy="198" r="22" fill="#0A1620" stroke="#243E58" stroke-width="1.5"/>
-            <circle cx="574" cy="198" r="10" fill="#132030"/>
-            <circle cx="574" cy="198" r="5.5" fill="#29ABE2" opacity="0.85"/>
-            <circle cx="574" cy="198" r="3" fill="#1A3A55"/>
-            <!-- 6 spokes -->
-            <line x1="574" y1="172" x2="574" y2="184" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <line x1="574" y1="212" x2="574" y2="224" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <line x1="550" y1="184" x2="560" y2="191" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <line x1="588" y1="205" x2="598" y2="212" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <line x1="550" y1="212" x2="560" y2="205" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <line x1="588" y1="191" x2="598" y2="184" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
-            <!-- Rim ring -->
-            <circle cx="574" cy="198" r="22" fill="none" stroke="#29ABE2" stroke-width="0.8" opacity="0.4"/>
+          <g id="wheelFront" class="bus-wheel">
+            <circle cx="556" cy="196" r="28" fill="#060D16" stroke="#132030" stroke-width="2"/>
+            <circle cx="556" cy="196" r="22" fill="#0C1C2E" stroke="#1E3A55" stroke-width="1.5"/>
+            <circle cx="556" cy="196" r="9" fill="#0F2035"/>
+            <circle cx="556" cy="196" r="5" fill="#29ABE2" opacity="0.8"/>
+            <circle cx="556" cy="196" r="2.8" fill="#142535"/>
+            <line x1="556" y1="170" x2="556" y2="183" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <line x1="556" y1="209" x2="556" y2="222" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <line x1="532" y1="182" x2="542" y2="189" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <line x1="570" y1="203" x2="580" y2="210" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <line x1="532" y1="210" x2="542" y2="203" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <line x1="570" y1="189" x2="580" y2="182" stroke="#29ABE2" stroke-width="2.2" opacity="0.6"/>
+            <circle cx="556" cy="196" r="22" fill="none" stroke="#29ABE2" stroke-width="0.8" opacity="0.35"/>
+            <circle cx="556" cy="196" r="27" fill="none" stroke="#0F1E2C" stroke-width="1.5"/>
           </g>
 
-          <!-- Wheel arch shadows -->
-          <path d="M100,186 Q100,172 128,170 Q156,172 156,186 Z" fill="#06101A"/>
-          <path d="M546,186 Q546,172 574,170 Q602,172 602,186 Z" fill="#06101A"/>
+          <!-- Wheel arch shadows (integrated, Citaro-like) -->
+          <path d="M122,179 Q122,166 152,164 Q182,166 182,179 Z" fill="#040C18"/>
+          <path d="M526,179 Q526,166 556,164 Q586,166 586,179 Z" fill="#040C18"/>
 
         </svg>
       </div>
