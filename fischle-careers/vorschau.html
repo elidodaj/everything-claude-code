@@ -153,6 +153,23 @@ canvas#stars{position:absolute;inset:0;pointer-events:none}
 .form-group textarea{resize:vertical;min-height:120px}
 .form-success{display:none;background:rgba(41,171,226,.1);border:1px solid var(--fb);border-radius:8px;padding:20px;text-align:center;color:var(--fb);font-weight:600}
 
+/* FILE UPLOAD */
+.upload-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:20px 16px;text-align:center;cursor:pointer;transition:all .2s;position:relative;background:var(--bg2)}
+.upload-zone:hover{border-color:var(--fb);background:rgba(41,171,226,.04)}
+.upload-zone.required-field{border-color:rgba(245,75,75,.35)}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-zone .uz-icon{font-size:24px;margin-bottom:6px}
+.upload-zone .uz-label{font-size:13px;font-weight:600;color:var(--white);margin-bottom:2px}
+.upload-zone .uz-hint{font-size:11px;color:var(--dim)}
+.upload-zone .uz-name{font-size:12px;color:var(--fb);margin-top:6px;font-weight:500;display:none}
+.req-badge{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(245,75,75,.15);color:#F54B4B;padding:2px 7px;border-radius:100px;margin-left:8px}
+.opt-badge{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(41,171,226,.1);color:var(--fb);padding:2px 7px;border-radius:100px;margin-left:8px}
+.upload-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+.privacy-check{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);margin:16px 0}
+.privacy-check input{width:16px;height:16px;margin-top:2px;accent-color:var(--fb);flex-shrink:0;cursor:pointer}
+.privacy-check a{color:var(--fb);text-decoration:underline}
+@media(max-width:640px){.upload-grid{grid-template-columns:1fr}}
+
 /* ADMIN */
 .admin-login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg)}
 .admin-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:48px;width:100%;max-width:440px}
@@ -498,17 +515,79 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
       <div id="form-bus-wrap" style="display:none">
         <div class="form-wrap" style="max-width:100%;margin:0">
           <h3>Bewerbung: Busfahrer/in</h3>
+          <!-- Standort & Anrede -->
           <div class="form-row">
-            <div class="form-group"><label>Vorname *</label><input type="text" placeholder="Max"></div>
-            <div class="form-group"><label>Nachname *</label><input type="text" placeholder="Mustermann"></div>
+            <div class="form-group"><label>Standort *</label><select><option value="">Bitte wählen</option><option>Plochingen-Reichenbach</option><option>Schorndorf</option><option>Reinheim</option><option>Stuttgart</option><option>Flexibel</option></select></div>
+            <div class="form-group"><label>Anrede</label><select><option value="">– keine Auswahl –</option><option>Herr</option><option>Frau</option><option>Divers</option></select></div>
           </div>
+          <!-- Name -->
           <div class="form-row">
-            <div class="form-group"><label>E-Mail *</label><input type="email" placeholder="max@email.de"></div>
-            <div class="form-group"><label>Telefon</label><input type="tel" placeholder="+49 711 ..."></div>
+            <div class="form-group"><label>Vorname *</label><input type="text" placeholder="Max" required></div>
+            <div class="form-group"><label>Nachname *</label><input type="text" placeholder="Mustermann" required></div>
           </div>
-          <div class="form-group"><label>Führerschein Klasse D?</label><select><option>Ja, vorhanden</option><option>Nein, aber Interesse am Erwerb</option><option>Klasse D1 vorhanden</option></select></div>
-          <div class="form-group"><label>Bevorzugter Standort</label><select><option>Esslingen</option><option>Schorndorf</option><option>Reinheim</option><option>Flexibel</option></select></div>
-          <div class="form-group"><label>Nachricht / Motivation</label><textarea placeholder="Was bewegt dich zu Fischle?"></textarea></div>
+          <!-- Geburtsdatum & Staatsangehörigkeit -->
+          <div class="form-row">
+            <div class="form-group"><label>Geburtsdatum *</label><input type="date" required></div>
+            <div class="form-group"><label>Staatsangehörigkeit *</label><select required><option value="">Bitte wählen</option><option>Deutsch</option><option>Österreichisch</option><option>Schweizerisch</option><option>Türkisch</option><option>Polnisch</option><option>Rumänisch</option><option>Bulgarisch</option><option>Kroatisch</option><option>Serbisch</option><option>Weitere…</option></select></div>
+          </div>
+          <!-- Adresse -->
+          <div class="form-group"><label>Straße &amp; Hausnummer</label><input type="text" placeholder="Musterstraße 12"></div>
+          <div class="form-row">
+            <div class="form-group"><label>PLZ</label><input type="text" placeholder="73730"></div>
+            <div class="form-group"><label>Ort</label><input type="text" placeholder="Esslingen"></div>
+          </div>
+          <!-- Kontakt -->
+          <div class="form-row">
+            <div class="form-group"><label>E-Mail *</label><input type="email" placeholder="max@email.de" required></div>
+            <div class="form-group"><label>Telefonnummer</label><input type="tel" placeholder="+49 711 ..."></div>
+          </div>
+          <!-- Eintrittsdatum & Führerschein -->
+          <div class="form-row">
+            <div class="form-group"><label>Frühstes Eintrittsdatum</label><input type="date"></div>
+            <div class="form-group"><label>Führerschein Klasse D</label><select><option>Ja, vorhanden</option><option>D1 vorhanden</option><option>Nein – Interesse am Erwerb</option></select></div>
+          </div>
+          <!-- Dokumente -->
+          <div style="margin:24px 0 8px">
+            <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Bewerbungsunterlagen</div>
+            <div class="upload-grid">
+              <div>
+                <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px">Anschreiben<span class="opt-badge">Optional</span></div>
+                <div class="upload-zone" id="uz-bus-anschreiben">
+                  <input type="file" accept=".pdf,.doc,.docx" onchange="setFileName('uz-bus-anschreiben',this)">
+                  <div class="uz-icon">📄</div>
+                  <div class="uz-label">Anschreiben hochladen</div>
+                  <div class="uz-hint">PDF, DOC, DOCX · max. 5 MB</div>
+                  <div class="uz-name" id="fn-bus-anschreiben"></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px">Lebenslauf<span class="req-badge">Pflicht</span></div>
+                <div class="upload-zone required-field" id="uz-bus-lebenslauf">
+                  <input type="file" accept=".pdf,.doc,.docx" onchange="setFileName('uz-bus-lebenslauf',this)" id="file-bus-lebenslauf">
+                  <div class="uz-icon">📋</div>
+                  <div class="uz-label">Lebenslauf hochladen</div>
+                  <div class="uz-hint">PDF, DOC, DOCX · max. 5 MB</div>
+                  <div class="uz-name" id="fn-bus-lebenslauf"></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px">Sonstige Unterlagen<span class="opt-badge">Optional</span></div>
+                <div class="upload-zone" id="uz-bus-sonstige">
+                  <input type="file" accept=".pdf,.doc,.docx,.jpg,.png" multiple onchange="setFileName('uz-bus-sonstige',this)">
+                  <div class="uz-icon">📎</div>
+                  <div class="uz-label">Weitere Dateien</div>
+                  <div class="uz-hint">Zeugnisse, Führerschein, etc. · max. 10 MB</div>
+                  <div class="uz-name" id="fn-bus-sonstige"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Datenschutz -->
+          <label class="privacy-check">
+            <input type="checkbox" id="privacy-bus" required>
+            <span>Ich habe die <a href="https://www.fischle.de/datenschutz/" target="_blank">Datenschutzerklärung</a> der Fischle-Gruppe gelesen und stimme der Verarbeitung meiner Daten im Rahmen dieser Bewerbung zu. *</span>
+          </label>
+          <div id="err-bus" style="display:none;color:#F54B4B;font-size:13px;margin-bottom:12px"></div>
           <div id="success-bus" class="form-success">✓ Bewerbung eingegangen! Wir melden uns innerhalb von 48 Stunden.</div>
           <button class="btn-primary" onclick="submitForm('bus')">Bewerbung absenden →</button>
         </div>
@@ -565,17 +644,79 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
       <div id="form-mech-wrap" style="display:none">
         <div class="form-wrap" style="max-width:100%;margin:0">
           <h3>Bewerbung: Kfz-Mechatroniker/in</h3>
+          <!-- Anrede -->
           <div class="form-row">
-            <div class="form-group"><label>Vorname *</label><input type="text" placeholder="Max"></div>
-            <div class="form-group"><label>Nachname *</label><input type="text" placeholder="Mustermann"></div>
+            <div class="form-group"><label>Anrede</label><select><option value="">– keine Auswahl –</option><option>Herr</option><option>Frau</option><option>Divers</option></select></div>
+            <div class="form-group"><label>Frühstes Eintrittsdatum</label><input type="date"></div>
           </div>
+          <!-- Name -->
           <div class="form-row">
-            <div class="form-group"><label>E-Mail *</label><input type="email" placeholder="max@email.de"></div>
-            <div class="form-group"><label>Telefon</label><input type="tel" placeholder="+49 711 ..."></div>
+            <div class="form-group"><label>Vorname *</label><input type="text" placeholder="Max" required></div>
+            <div class="form-group"><label>Nachname *</label><input type="text" placeholder="Mustermann" required></div>
           </div>
-          <div class="form-group"><label>Jahre Berufserfahrung</label><select><option>< 1 Jahr</option><option>1–3 Jahre</option><option>3–5 Jahre</option><option>5+ Jahre</option></select></div>
-          <div class="form-group"><label>Erfahrung mit Nutzfahrzeugen?</label><select><option>Ja</option><option>Nein, komme aus Pkw-Bereich</option><option>Teils</option></select></div>
-          <div class="form-group"><label>Nachricht / Motivation</label><textarea placeholder="Was bringst du mit? Was suchst du?"></textarea></div>
+          <!-- Geburtsdatum & Staatsangehörigkeit -->
+          <div class="form-row">
+            <div class="form-group"><label>Geburtsdatum *</label><input type="date" required></div>
+            <div class="form-group"><label>Staatsangehörigkeit *</label><select required><option value="">Bitte wählen</option><option>Deutsch</option><option>Österreichisch</option><option>Schweizerisch</option><option>Türkisch</option><option>Polnisch</option><option>Rumänisch</option><option>Weitere…</option></select></div>
+          </div>
+          <!-- Adresse -->
+          <div class="form-group"><label>Straße &amp; Hausnummer</label><input type="text" placeholder="Musterstraße 12"></div>
+          <div class="form-row">
+            <div class="form-group"><label>PLZ</label><input type="text" placeholder="73730"></div>
+            <div class="form-group"><label>Ort</label><input type="text" placeholder="Esslingen"></div>
+          </div>
+          <!-- Kontakt -->
+          <div class="form-row">
+            <div class="form-group"><label>E-Mail *</label><input type="email" placeholder="max@email.de" required></div>
+            <div class="form-group"><label>Telefonnummer</label><input type="tel" placeholder="+49 711 ..."></div>
+          </div>
+          <!-- Berufserfahrung -->
+          <div class="form-row">
+            <div class="form-group"><label>Jahre Berufserfahrung</label><select><option>&lt; 1 Jahr</option><option>1–3 Jahre</option><option>3–5 Jahre</option><option>5+ Jahre</option></select></div>
+            <div class="form-group"><label>Erfahrung mit Nutzfahrzeugen</label><select><option>Ja</option><option>Nein – komme aus Pkw-Bereich</option><option>Teils</option></select></div>
+          </div>
+          <!-- Dokumente -->
+          <div style="margin:24px 0 8px">
+            <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Bewerbungsunterlagen</div>
+            <div class="upload-grid">
+              <div>
+                <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px">Anschreiben<span class="opt-badge">Optional</span></div>
+                <div class="upload-zone" id="uz-mech-anschreiben">
+                  <input type="file" accept=".pdf,.doc,.docx" onchange="setFileName('uz-mech-anschreiben',this)">
+                  <div class="uz-icon">📄</div>
+                  <div class="uz-label">Anschreiben hochladen</div>
+                  <div class="uz-hint">PDF, DOC, DOCX · max. 5 MB</div>
+                  <div class="uz-name" id="fn-mech-anschreiben"></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px">Lebenslauf<span class="req-badge">Pflicht</span></div>
+                <div class="upload-zone required-field" id="uz-mech-lebenslauf">
+                  <input type="file" accept=".pdf,.doc,.docx" onchange="setFileName('uz-mech-lebenslauf',this)" id="file-mech-lebenslauf">
+                  <div class="uz-icon">📋</div>
+                  <div class="uz-label">Lebenslauf hochladen</div>
+                  <div class="uz-hint">PDF, DOC, DOCX · max. 5 MB</div>
+                  <div class="uz-name" id="fn-mech-lebenslauf"></div>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px">Sonstige Unterlagen<span class="opt-badge">Optional</span></div>
+                <div class="upload-zone" id="uz-mech-sonstige">
+                  <input type="file" accept=".pdf,.doc,.docx,.jpg,.png" multiple onchange="setFileName('uz-mech-sonstige',this)">
+                  <div class="uz-icon">📎</div>
+                  <div class="uz-label">Weitere Dateien</div>
+                  <div class="uz-hint">Zeugnisse, Zertifikate, etc. · max. 10 MB</div>
+                  <div class="uz-name" id="fn-mech-sonstige"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Datenschutz -->
+          <label class="privacy-check">
+            <input type="checkbox" id="privacy-mech" required>
+            <span>Ich habe die <a href="https://www.fischle.de/datenschutz/" target="_blank">Datenschutzerklärung</a> der Fischle-Gruppe gelesen und stimme der Verarbeitung meiner Daten im Rahmen dieser Bewerbung zu. *</span>
+          </label>
+          <div id="err-mech" style="display:none;color:#F54B4B;font-size:13px;margin-bottom:12px"></div>
           <div id="success-mech" class="form-success">✓ Bewerbung eingegangen! Wir melden uns innerhalb von 48 Stunden.</div>
           <button class="btn-primary" onclick="submitForm('mech')">Bewerbung absenden →</button>
         </div>
@@ -1047,6 +1188,21 @@ new IntersectionObserver((entries) => {
   if (entries[0].isIntersecting) initCountUp();
 }, {threshold: 0.3}).observe(document.querySelector('.stat-bar') || document.body);
 
+// FILE UPLOAD DISPLAY
+function setFileName(zoneId, input) {
+  const zone = document.getElementById(zoneId);
+  const nameEl = zone.querySelector('.uz-name');
+  const iconEl = zone.querySelector('.uz-icon');
+  if (input.files && input.files.length > 0) {
+    const names = Array.from(input.files).map(f => f.name).join(', ');
+    nameEl.textContent = '✓ ' + names;
+    nameEl.style.display = 'block';
+    zone.style.borderColor = '#29ABE2';
+    zone.style.borderStyle = 'solid';
+    iconEl.textContent = '✅';
+  }
+}
+
 // FORM TOGGLE
 function toggleForm(type) {
   const wrap = document.getElementById('form-' + type + '-wrap');
@@ -1054,15 +1210,36 @@ function toggleForm(type) {
   if (wrap.style.display === 'none') {
     wrap.style.display = 'block';
     btn.style.display = 'none';
+    wrap.scrollIntoView({behavior:'smooth', block:'start'});
   }
 }
+
 function submitForm(type) {
+  const errEl = document.getElementById('err-' + type);
+  const lebenslaufInput = document.getElementById('file-' + type + '-lebenslauf');
+  const privacyCheck = document.getElementById('privacy-' + type);
+  errEl.style.display = 'none';
+
+  // Validate Lebenslauf (Pflicht)
+  if (!lebenslaufInput || !lebenslaufInput.files || lebenslaufInput.files.length === 0) {
+    errEl.textContent = 'Bitte laden Sie Ihren Lebenslauf hoch (Pflichtfeld).';
+    errEl.style.display = 'block';
+    document.getElementById('uz-' + type + '-lebenslauf').style.borderColor = '#F54B4B';
+    return;
+  }
+  // Validate Datenschutz
+  if (!privacyCheck || !privacyCheck.checked) {
+    errEl.textContent = 'Bitte stimmen Sie der Datenschutzerklärung zu.';
+    errEl.style.display = 'block';
+    return;
+  }
+
   const success = document.getElementById('success-' + type);
   success.style.display = 'block';
-  success.previousElementSibling.style.display = 'none';
-  // Hide the submit button (it's after success div)
-  const btn = success.nextElementSibling;
-  if (btn) btn.style.display = 'none';
+  errEl.style.display = 'none';
+  // Hide submit button
+  const submitBtn = success.nextElementSibling;
+  if (submitBtn) submitBtn.style.display = 'none';
 }
 
 // ADMIN AUTH
