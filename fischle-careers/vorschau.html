@@ -276,7 +276,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
     <div class="light-orb" style="width:400px;height:400px;background:rgba(41,171,226,.04);bottom:-100px;right:-100px;animation-delay:3s"></div>
 
     <div class="hero-inner">
-      <div class="hero-eyebrow">Fischle-Gruppe · Seit Jahrzehnten in Bewegung</div>
+      <div class="hero-eyebrow">Fischle-Gruppe · Seit 1932 in Bewegung</div>
       <h1 class="hero-h1">Bewegung<br><em>ist Bedeutung.</em></h1>
       <p class="hero-sub">Ein Bus ist mehr als Blech. Er ist der Puls einer Region. Hinter jedem Steuer, in jeder Werkstatt, in jedem Dienstplan steht ein Mensch, der dafür sorgt, dass das Leben anderer Menschen weitergeht. Das ist kein Job. Das ist ein Auftrag.</p>
       <div class="hero-actions">
@@ -342,8 +342,13 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
           <!-- Roof (slightly differentiated) -->
           <path d="M44,34 L630,22 Q658,22 672,38 L686,62 L686,42 Q672,26 658,24 L80,24 Q52,24 44,34 Z" fill="url(#cRoof)"/>
 
+          <!-- Roof equipment (A/C unit, roof rail) -->
+          <rect x="100" y="16" width="360" height="8" rx="3" fill="#0A1828" stroke="#1A3550" stroke-width="0.8" opacity="0.9"/>
+          <rect x="140" y="14" width="280" height="5" rx="2" fill="#132038" opacity="0.8"/>
           <!-- Lower body skirt (darker underbelly) -->
           <rect x="44" y="152" width="646" height="34" rx="0" fill="#060F1A"/>
+          <!-- Body panel crease line (horizontal) -->
+          <line x1="44" y1="150" x2="541" y2="150" stroke="rgba(41,171,226,0.15)" stroke-width="1"/>
 
           <!-- ====== WINDOWS ====== -->
           <!-- Citaro panoramic windows – tall and wide -->
@@ -400,17 +405,21 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
           <!-- ====== DESTINATION DISPLAY ====== -->
           <rect x="541" y="12" width="148" height="14" rx="3" fill="#010810"/>
           <rect x="543" y="13" width="144" height="11" rx="2" fill="#000C16"/>
-          <text id="destText" x="615" y="22" font-family="'Courier New',monospace" font-size="7.5" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="1.2" opacity="0.9">LINIE 261 · ESSLINGEN HBF</text>
+          <text id="destText" x="615" y="22" font-family="'Courier New',monospace" font-size="7.5" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="1.2" opacity="0.9">LINIE 116 · PLOCHINGEN HBF</text>
 
           <!-- ====== FISCHLE BRANDING ====== -->
-          <!-- Main bold Fischle blue stripe -->
-          <rect x="44" y="128" width="647" height="12" fill="#29ABE2"/>
-          <!-- Thin accent line above stripe -->
-          <rect x="44" y="126" width="647" height="2" fill="rgba(41,171,226,0.4)"/>
-          <!-- Company name - large, white, proud -->
-          <text x="295" y="122" font-family="'Barlow Condensed',sans-serif" font-size="36" font-weight="900" fill="white" text-anchor="middle" letter-spacing="14" opacity="0.97">FISCHLE</text>
-          <!-- Subtitle GRUPPE right below in Fischle blue -->
-          <text x="295" y="126" font-family="'Barlow Condensed',sans-serif" font-size="7" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="10" opacity="0.85">G R U P P E</text>
+          <!-- Wide Fischle blue band - clear white-on-blue contrast -->
+          <rect x="44" y="96" width="497" height="44" fill="#29ABE2"/>
+          <!-- Subtle inner shadow top -->
+          <rect x="44" y="96" width="497" height="2.5" fill="rgba(255,255,255,0.22)"/>
+          <!-- Subtle inner shadow bottom -->
+          <rect x="44" y="138" width="497" height="2" fill="rgba(0,20,50,0.3)"/>
+          <!-- FISCHLE – white text on Fischle blue, maximum contrast -->
+          <text x="290" y="129" font-family="'Barlow Condensed',sans-serif" font-size="30" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="8">FISCHLE</text>
+          <!-- GRUPPE sub-label -->
+          <text x="290" y="143" font-family="'Barlow Condensed',sans-serif" font-size="8.5" font-weight="700" fill="rgba(255,255,255,0.82)" text-anchor="middle" letter-spacing="5.5">G R U P P E</text>
+          <!-- Blue stripe continuation in windshield area -->
+          <rect x="541" y="128" width="150" height="12" fill="#29ABE2"/>
 
           <!-- ====== FRONT DOOR (Citaro fold-out) ====== -->
           <g id="frontDoorGroup" class="">
@@ -446,10 +455,18 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
           <path d="M684,70 L740,50 L740,115 L684,100 Z" fill="url(#cHL)" opacity="0.06" class="hl-glow"/>
 
           <!-- ====== TAIL LIGHTS ====== -->
-          <rect x="45" y="52" width="8" height="28" rx="2" fill="#CC1500" opacity="0.9"/>
-          <rect x="45" y="83" width="8" height="16" rx="2" fill="#FF2200" opacity="0.55"/>
+          <!-- LED tail light cluster -->
+          <rect x="44" y="50" width="10" height="30" rx="2" fill="#8B0000" opacity="0.95"/>
+          <rect x="44" y="52" width="10" height="26" rx="2" fill="#CC1500" opacity="0.9"/>
+          <!-- LED segments -->
+          <rect x="45" y="53" width="7" height="6" rx="1" fill="#FF2200" opacity="0.95"/>
+          <rect x="45" y="61" width="7" height="6" rx="1" fill="#FF2200" opacity="0.85"/>
+          <rect x="45" y="69" width="7" height="6" rx="1" fill="#FF2200" opacity="0.75"/>
+          <rect x="45" y="77" width="7" height="4" rx="1" fill="#FF6600" opacity="0.7"/>
           <!-- Tail reflector -->
-          <rect x="45" y="100" width="8" height="8" rx="1" fill="#FF8800" opacity="0.4"/>
+          <rect x="44" y="83" width="10" height="10" rx="2" fill="#FF8800" opacity="0.5"/>
+          <!-- Glow -->
+          <ellipse cx="49" cy="65" rx="14" ry="20" fill="#CC0000" opacity="0.06"/>
 
           <!-- ====== UNDERBODY DETAILS ====== -->
           <!-- Exhaust / underpanel detail -->
@@ -589,10 +606,10 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
         <span class="section-tag">Was uns antreibt</span>
         <h2 class="section-h2" style="margin-bottom:24px">Der Bus verbindet.<br>Der Mensch entscheidet.</h2>
         <p style="color:var(--muted);font-size:16px;line-height:1.9;margin-bottom:20px">
-          Wir sind kein Konzern. Wir sind eine Gemeinschaft von 180 Menschen, die jeden Tag dafür sorgen, dass das Rems-Murr-Gebiet nicht stillsteht.
+          Wir sind kein Konzern. Wir sind eine Gemeinschaft von 180 Menschen — in Stuttgart, Esslingen, Schorndorf, Darmstadt und Reinheim — die jeden Tag dafür sorgen, dass die Region nicht stillsteht.
         </p>
         <p style="color:var(--muted);font-size:16px;line-height:1.9">
-          Seit Jahrzehnten bewegt die Fischle-Gruppe Millionen von Fahrgästen — Kinder zur Schule, Arbeitnehmer ins Büro, ältere Menschen zum Arzt. Hinter jedem dieser Wege steht ein Mensch bei uns, der seinen Job mit Würde macht.
+          Seit 1932 bewegt die Fischle-Gruppe Millionen von Fahrgästen — im VVS-Gebiet rund um Stuttgart und im RMV-Gebiet um Darmstadt. Kinder zur Schule, Arbeitnehmer ins Büro, ältere Menschen zum Arzt. Hinter jedem dieser Wege steht ein Mensch bei uns, der seinen Job mit Würde macht.
         </p>
       </div>
       <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
@@ -972,7 +989,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
       <div style="font-size:56px;flex-shrink:0">🚌</div>
       <div>
         <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--white);margin-bottom:10px">Der Bus als Karriere-Kickstart</h2>
-        <p style="color:var(--muted);font-size:15px;line-height:1.7">Wir bilden Kfz-Mechatroniker aus — praxisnah, bezahlt, mit echter Übernahmeperspektive. Die besten Mitarbeiter sind die, die bei uns aufgewachsen sind. Das wissen wir aus 30 Jahren Erfahrung.</p>
+        <p style="color:var(--muted);font-size:15px;line-height:1.7">Wir bilden Kfz-Mechatroniker aus — praxisnah, bezahlt, mit echter Übernahmeperspektive. Die besten Mitarbeiter sind die, die bei uns aufgewachsen sind. Das wissen wir aus über 90 Jahren Erfahrung — seit 1932.</p>
       </div>
     </div>
 
@@ -1091,8 +1108,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
       <div style="font-size:56px;flex-shrink:0">🏆</div>
       <div>
         <div style="color:var(--gold);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">Auszeichnung 2023</div>
-        <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:var(--white);letter-spacing:-.5px;margin-bottom:12px">Nilüfer Keskin: Busfahrerin des Jahres im Rems-Murr-Kreis</h2>
-        <p style="color:var(--muted);font-size:15px;line-height:1.7;max-width:680px">Nilüfer Keskin wurde zur diesjährigen "Busfahrerin des Jahres" im Rems-Murr-Kreis gewählt. Der VVS verleiht diese Auszeichnung seit 2004. In 12 Jahren bei der Fischle-Gruppe hat sie Tausende Fahrgäste mit ihrer hilfsbereiten und freundlichen Art begeistert. Sie zeigt, was hier möglich ist: Wenn du deinen Job mit Herz machst, wird es gesehen.</p>
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:var(--white);letter-spacing:-.5px;margin-bottom:12px">Nilüfer Keskin: Busfahrerin des Jahres im VVS-Verbundgebiet</h2>
+        <p style="color:var(--muted);font-size:15px;line-height:1.7;max-width:680px">Nilüfer Keskin wurde zur "Busfahrerin des Jahres" im VVS-Verbundgebiet gewählt — eine Auszeichnung, die der Verkehrsverbund Stuttgart seit 2004 für herausragende Fahrerinnen und Fahrer vergibt. In 12 Jahren bei der Fischle-Gruppe hat sie Tausende Fahrgäste in Esslingen und Plochingen mit ihrer hilfsbereiten Art begeistert. Sie zeigt, was hier möglich ist: Wenn du deinen Job mit Herz machst, wird es gesehen.</p>
       </div>
     </div>
 
