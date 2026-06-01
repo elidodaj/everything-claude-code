@@ -347,8 +347,10 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
           <rect x="140" y="14" width="280" height="5" rx="2" fill="#132038" opacity="0.8"/>
           <!-- Lower body skirt (darker underbelly) -->
           <rect x="44" y="152" width="646" height="34" rx="0" fill="#060F1A"/>
-          <!-- Body panel crease line (horizontal) -->
-          <line x1="44" y1="150" x2="541" y2="150" stroke="rgba(41,171,226,0.15)" stroke-width="1"/>
+          <!-- Belt line crease - adds realism and depth to bus profile -->
+          <line x1="44" y1="93" x2="541" y2="93" stroke="rgba(20,50,80,0.8)" stroke-width="1.5"/>
+          <!-- Dark shadow at bottom of body panel (adds depth) -->
+          <rect x="44" y="145" width="497" height="7" fill="rgba(0,0,0,0.15)"/>
 
           <!-- ====== WINDOWS ====== -->
           <!-- Citaro panoramic windows – tall and wide -->
@@ -408,18 +410,20 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
           <text id="destText" x="615" y="22" font-family="'Courier New',monospace" font-size="7.5" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="1.2" opacity="0.9">LINIE 116 · PLOCHINGEN HBF</text>
 
           <!-- ====== FISCHLE BRANDING ====== -->
-          <!-- Wide Fischle blue band - clear white-on-blue contrast -->
-          <rect x="44" y="96" width="497" height="44" fill="#29ABE2"/>
-          <!-- Subtle inner shadow top -->
-          <rect x="44" y="96" width="497" height="2.5" fill="rgba(255,255,255,0.22)"/>
-          <!-- Subtle inner shadow bottom -->
-          <rect x="44" y="138" width="497" height="2" fill="rgba(0,20,50,0.3)"/>
-          <!-- FISCHLE – white text on Fischle blue, maximum contrast -->
-          <text x="290" y="129" font-family="'Barlow Condensed',sans-serif" font-size="30" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="8">FISCHLE</text>
-          <!-- GRUPPE sub-label -->
-          <text x="290" y="143" font-family="'Barlow Condensed',sans-serif" font-size="8.5" font-weight="700" fill="rgba(255,255,255,0.82)" text-anchor="middle" letter-spacing="5.5">G R U P P E</text>
-          <!-- Blue stripe continuation in windshield area -->
-          <rect x="541" y="128" width="150" height="12" fill="#29ABE2"/>
+          <!-- Thin blue accent stripe just below windows -->
+          <rect x="44" y="93" width="497" height="3.5" fill="#29ABE2" opacity="0.85"/>
+          <!-- Thin blue waist stripe (classic bus styling) -->
+          <rect x="44" y="148" width="497" height="5" fill="#29ABE2"/>
+          <!-- Light highlight on top of waist stripe -->
+          <rect x="44" y="148" width="497" height="1" fill="rgba(255,255,255,0.2)"/>
+          <!-- FISCHLE – large white text, centered between front door (x=120) and middle door (x=346) -->
+          <!-- Center = (120+346)/2 = 233, space = 226 units, text ~170 units wide — fits perfectly -->
+          <text x="233" y="133" font-family="'Barlow Condensed',sans-serif" font-size="40" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="4" opacity="0.97">FISCHLE</text>
+          <!-- GRUPPE – smaller blue text below -->
+          <text x="233" y="146" font-family="'Barlow Condensed',sans-serif" font-size="8" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="5">G R U P P E</text>
+          <!-- Secondary blue accent strip in rear zone x=417-541 -->
+          <rect x="420" y="96" width="120" height="52" rx="0" fill="rgba(41,171,226,0.04)"/>
+          <text x="480" y="128" font-family="'Barlow Condensed',sans-serif" font-size="9" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="2" opacity="0.7">EST. 1932</text>
 
           <!-- ====== FRONT DOOR (Citaro fold-out) ====== -->
           <g id="frontDoorGroup" class="">
