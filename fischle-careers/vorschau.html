@@ -46,21 +46,47 @@ canvas#stars{position:absolute;inset:0;pointer-events:none}
 .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .9s .9s forwards}
 
 /* BUS SCENE */
-.bus-scene{position:relative;width:100%;max-width:800px;margin:60px auto 0;height:220px;overflow:hidden;opacity:0;animation:fadeUp .9s 1.1s forwards}
-.bus-track{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(41,171,226,.3),transparent)}
-.bus-wrap{position:absolute;bottom:10px;left:50%;transform:translateX(calc(-50% - 900px));animation:busIn 2.6s cubic-bezier(.25,.46,.45,.94) 1.4s forwards}
+.bus-scene{position:relative;width:100%;max-width:960px;margin:56px auto 0;height:260px;overflow:visible;opacity:0;animation:fadeUp .9s 1.1s forwards}
+.bus-track{position:absolute;bottom:22px;left:-10%;right:-10%;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(41,171,226,.18) 20%,rgba(41,171,226,.35) 50%,rgba(41,171,226,.18) 80%,transparent 100%)}
+.bus-wrap{position:absolute;bottom:0;left:50%;transform:translateX(calc(-50% - 1400px));animation:busIn 3s cubic-bezier(.22,.68,0,1.2) 1.5s forwards}
 @keyframes busIn{
-  0%{transform:translateX(calc(-50% - 900px))}
-  60%{transform:translateX(calc(-50% + 12px))}
-  72%{transform:translateX(calc(-50% - 6px))}
+  0%{transform:translateX(calc(-50% - 1400px));filter:blur(3px)}
+  55%{transform:translateX(calc(-50% + 18px));filter:blur(0)}
+  68%{transform:translateX(calc(-50% - 8px))}
+  80%{transform:translateX(calc(-50% + 3px))}
   100%{transform:translateX(-50%)}
 }
-.bus-svg{width:460px}
+.bus-wrap.bus-idle{animation:busIn 3s cubic-bezier(.22,.68,0,1.2) 1.5s forwards,busIdle 5s ease-in-out 5s infinite}
+@keyframes busIdle{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-2px)}}
+.bus-svg{width:600px}
+
+/* WHEEL SPIN */
+.bus-wheel{transform-box:fill-box;transform-origin:center;animation:wheelSpin .5s linear infinite}
+.bus-wheel.slow{animation:wheelSpin 1.5s linear infinite}
+.bus-wheel.stopped{animation:none}
+@keyframes wheelSpin{to{transform:rotate(-360deg)}}
+
+/* HEADLIGHT GLOW */
+.hl-glow{animation:hlPulse 2.8s ease-in-out 5s infinite}
+@keyframes hlPulse{0%,100%{opacity:.45}50%{opacity:.12}}
+
+/* DOOR ANIMATION */
+.bus-door{transform-box:fill-box;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.bus-door-l{transform-origin:left center}
+.bus-door-r{transform-origin:right center}
+.door-open .bus-door-l{transform:scaleX(.06)}
+.door-open .bus-door-r{transform:scaleX(.06)}
+
+/* SPEED TRAIL LINES */
+.bus-trail{position:absolute;bottom:80px;right:calc(50% + 240px);pointer-events:none;display:flex;flex-direction:column;gap:8px;opacity:0;transition:opacity .4s}
+.bus-trail.visible{opacity:1}
+.trail-line{height:2px;border-radius:2px;background:linear-gradient(to left,rgba(41,171,226,.5),transparent);animation:trailFade .5s ease-out forwards}
+@keyframes trailFade{from{opacity:1;transform:scaleX(1)}to{opacity:0;transform:scaleX(.3)}}
 
 /* ROAD LINES */
-.road-lines{position:absolute;bottom:0;left:0;right:0;height:60px;overflow:hidden;opacity:.4}
-.road-line{position:absolute;bottom:24px;height:3px;width:60px;background:var(--fb);border-radius:2px;animation:roadScroll 1.8s linear infinite}
-@keyframes roadScroll{0%{left:110%}100%{left:-10%}}
+.road-lines{position:absolute;bottom:20px;left:0;right:0;height:40px;overflow:hidden;opacity:.35}
+.road-line{position:absolute;bottom:12px;height:2px;width:80px;background:linear-gradient(to left,var(--fb),transparent);border-radius:2px;animation:roadScroll 1.4s linear infinite}
+@keyframes roadScroll{0%{left:110%}100%{left:-15%}}
 
 /* AMBIENT LIGHTS */
 .light-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbFloat 8s ease-in-out infinite}
@@ -264,57 +290,231 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
       <div class="bus-track"></div>
       <div class="road-lines">
         <div class="road-line" style="animation-delay:0s"></div>
-        <div class="road-line" style="animation-delay:.6s"></div>
-        <div class="road-line" style="animation-delay:1.2s"></div>
+        <div class="road-line" style="animation-delay:.5s"></div>
+        <div class="road-line" style="animation-delay:1s"></div>
+        <div class="road-line" style="animation-delay:1.5s"></div>
       </div>
       <div class="bus-wrap" id="busWrap">
-        <!-- Professional SVG Bus -->
-        <svg class="bus-svg" viewBox="0 0 460 180" xmlns="http://www.w3.org/2000/svg">
-          <!-- Bus body -->
-          <rect x="8" y="30" width="440" height="120" rx="10" fill="#0D2A40"/>
-          <!-- Blue accent stripe -->
-          <rect x="8" y="48" width="440" height="6" fill="#29ABE2"/>
-          <!-- Windshield -->
-          <rect x="380" y="38" width="60" height="70" rx="6" fill="#1A3550" opacity=".9"/>
-          <rect x="382" y="40" width="56" height="66" rx="5" fill="#0F2035" opacity=".7"/>
-          <!-- Windows -->
-          <rect x="60" y="44" width="52" height="38" rx="4" fill="#0A2540" opacity=".8"/>
-          <rect x="122" y="44" width="52" height="38" rx="4" fill="#0A2540" opacity=".8"/>
-          <rect x="184" y="44" width="52" height="38" rx="4" fill="#0A2540" opacity=".8"/>
-          <rect x="246" y="44" width="52" height="38" rx="4" fill="#0A2540" opacity=".8"/>
-          <rect x="308" y="44" width="60" height="38" rx="4" fill="#0A2540" opacity=".8"/>
-          <!-- Window light -->
-          <rect x="62" y="46" width="48" height="34" rx="3" fill="#1A3860" opacity=".5"/>
-          <rect x="124" y="46" width="48" height="34" rx="3" fill="#1A3860" opacity=".5"/>
-          <rect x="186" y="46" width="48" height="34" rx="3" fill="#1A3860" opacity=".5"/>
-          <rect x="248" y="46" width="48" height="34" rx="3" fill="#1A3860" opacity=".5"/>
-          <rect x="310" y="46" width="56" height="34" rx="3" fill="#1A3860" opacity=".5"/>
-          <!-- FISCHLE text on bus -->
-          <text x="180" y="112" font-family="'Barlow Condensed',sans-serif" font-size="24" font-weight="900" fill="#29ABE2" letter-spacing="6" text-anchor="middle">FISCHLE-GRUPPE</text>
-          <!-- Door left panel -->
-          <rect id="doorL" x="24" y="50" width="28" height="90" rx="3" fill="#102235" stroke="#29ABE2" stroke-width="1" opacity=".8"/>
-          <!-- Door right panel -->
-          <rect id="doorR" x="52" y="50" width="28" height="90" rx="3" fill="#102235" stroke="#29ABE2" stroke-width="1" opacity=".8"/>
-          <!-- Door handle -->
-          <line x1="50" y1="95" x2="52" y2="95" stroke="#29ABE2" stroke-width="2"/>
-          <!-- Headlight -->
-          <ellipse cx="448" cy="90" rx="6" ry="12" fill="#29ABE2" opacity=".6"/>
-          <!-- Tail light -->
-          <rect x="10" y="80" width="6" height="24" rx="2" fill="#F44"/>
-          <!-- Undercarriage -->
-          <rect x="8" y="148" width="440" height="8" rx="2" fill="#07131F"/>
-          <!-- Wheels -->
-          <circle cx="90" cy="158" r="18" fill="#0D1E30" stroke="#29ABE2" stroke-width="2"/>
-          <circle cx="90" cy="158" r="10" fill="#0A1828"/>
-          <circle cx="90" cy="158" r="4" fill="#29ABE2"/>
-          <circle cx="340" cy="158" r="18" fill="#0D1E30" stroke="#29ABE2" stroke-width="2"/>
-          <circle cx="340" cy="158" r="10" fill="#0A1828"/>
-          <circle cx="340" cy="158" r="4" fill="#29ABE2"/>
-          <!-- Wheel spokes -->
-          <line x1="90" y1="140" x2="90" y2="176" stroke="#29ABE2" stroke-width="1.5" opacity=".4" class="spoke"/>
-          <line x1="72" y1="158" x2="108" y2="158" stroke="#29ABE2" stroke-width="1.5" opacity=".4" class="spoke"/>
-          <line x1="340" y1="140" x2="340" y2="176" stroke="#29ABE2" stroke-width="1.5" opacity=".4" class="spoke"/>
-          <line x1="322" y1="158" x2="358" y2="158" stroke="#29ABE2" stroke-width="1.5" opacity=".4" class="spoke"/>
+        <!-- Mercedes Citaro – Fischle Gruppe -->
+        <svg class="bus-svg" viewBox="0 0 740 230" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="cBody" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0F2840"/>
+              <stop offset="55%" stop-color="#0A1D30"/>
+              <stop offset="100%" stop-color="#06111F"/>
+            </linearGradient>
+            <linearGradient id="cRoof" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#152E48"/>
+              <stop offset="100%" stop-color="#0A1D30"/>
+            </linearGradient>
+            <linearGradient id="cWin" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1E5A8A" stop-opacity="0.65"/>
+              <stop offset="45%" stop-color="#0D3055" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#061525" stop-opacity="0.1"/>
+            </linearGradient>
+            <linearGradient id="cWinFront" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1A4E7A" stop-opacity="0.7"/>
+              <stop offset="100%" stop-color="#060E1A" stop-opacity="0.2"/>
+            </linearGradient>
+            <radialGradient id="cHL" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#FFFDE8" stop-opacity="1"/>
+              <stop offset="60%" stop-color="#FFE060" stop-opacity="0.5"/>
+              <stop offset="100%" stop-color="#FFAA00" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="cGround" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#29ABE2" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#29ABE2" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="fGlow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
+          </defs>
+
+          <!-- Ground shadow + glow -->
+          <ellipse cx="365" cy="222" rx="340" ry="10" fill="rgba(0,0,0,0.55)"/>
+          <ellipse cx="365" cy="218" rx="310" ry="16" fill="url(#cGround)"/>
+
+          <!-- ====== MAIN CITARO BODY ====== -->
+          <!-- Profile: Citaro has characteristic tall windshield front, slight raised roofline -->
+          <path d="M44,186 L44,56 Q46,26 80,22 L630,22 Q658,22 672,38 L686,62 L690,90 L690,186 Z" fill="url(#cBody)"/>
+
+          <!-- Roof (slightly differentiated) -->
+          <path d="M44,34 L630,22 Q658,22 672,38 L686,62 L686,42 Q672,26 658,24 L80,24 Q52,24 44,34 Z" fill="url(#cRoof)"/>
+
+          <!-- Lower body skirt (darker underbelly) -->
+          <rect x="44" y="152" width="646" height="34" rx="0" fill="#060F1A"/>
+
+          <!-- ====== WINDOWS ====== -->
+          <!-- Citaro panoramic windows – tall and wide -->
+          <!-- Win 1 (rear) -->
+          <rect x="62" y="30" width="74" height="64" rx="4" fill="#030C16"/>
+          <rect x="62" y="30" width="74" height="64" rx="4" fill="url(#cWin)"/>
+          <rect x="64" y="32" width="32" height="60" rx="3" fill="rgba(41,130,180,0.07)"/>
+          <line x1="99" y1="30" x2="99" y2="94" stroke="#0A1D30" stroke-width="2.5"/>
+
+          <!-- Win 2 -->
+          <rect x="145" y="30" width="74" height="64" rx="4" fill="#030C16"/>
+          <rect x="145" y="30" width="74" height="64" rx="4" fill="url(#cWin)"/>
+          <rect x="147" y="32" width="32" height="60" rx="3" fill="rgba(41,130,180,0.07)"/>
+          <line x1="182" y1="30" x2="182" y2="94" stroke="#0A1D30" stroke-width="2.5"/>
+
+          <!-- Win 3 -->
+          <rect x="228" y="30" width="74" height="64" rx="4" fill="#030C16"/>
+          <rect x="228" y="30" width="74" height="64" rx="4" fill="url(#cWin)"/>
+          <rect x="230" y="32" width="32" height="60" rx="3" fill="rgba(41,130,180,0.07)"/>
+          <line x1="265" y1="30" x2="265" y2="94" stroke="#0A1D30" stroke-width="2.5"/>
+
+          <!-- Win 4 -->
+          <rect x="311" y="30" width="74" height="64" rx="4" fill="#030C16"/>
+          <rect x="311" y="30" width="74" height="64" rx="4" fill="url(#cWin)"/>
+          <rect x="313" y="32" width="32" height="60" rx="3" fill="rgba(41,130,180,0.07)"/>
+          <line x1="348" y1="30" x2="348" y2="94" stroke="#0A1D30" stroke-width="2.5"/>
+
+          <!-- Win 5 -->
+          <rect x="394" y="30" width="74" height="64" rx="4" fill="#030C16"/>
+          <rect x="394" y="30" width="74" height="64" rx="4" fill="url(#cWin)"/>
+          <rect x="396" y="32" width="32" height="60" rx="3" fill="rgba(41,130,180,0.07)"/>
+          <line x1="431" y1="30" x2="431" y2="94" stroke="#0A1D30" stroke-width="2.5"/>
+
+          <!-- Win 6 (slightly narrower near driver area) -->
+          <rect x="477" y="30" width="60" height="64" rx="4" fill="#030C16"/>
+          <rect x="477" y="30" width="60" height="64" rx="4" fill="url(#cWin)"/>
+
+          <!-- ====== WINDSHIELD (Citaro – huge glass face) ====== -->
+          <path d="M541,24 L632,24 Q658,24 672,40 L686,64 L690,140 L541,140 Z" fill="#020A14"/>
+          <path d="M543,26 L630,26 Q654,26 668,41 L681,64 L681,138 L543,138 Z" fill="url(#cWinFront)"/>
+          <!-- A-pillar center divider -->
+          <line x1="610" y1="24" x2="614" y2="140" stroke="#0E2030" stroke-width="4"/>
+          <!-- Windshield wipers (subtle) -->
+          <line x1="545" y1="136" x2="605" y2="100" stroke="#0E2030" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+          <line x1="618" y1="136" x2="678" y2="88" stroke="#0E2030" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+          <!-- Dashboard interior glow -->
+          <rect x="543" y="120" width="137" height="20" fill="#030D18"/>
+          <rect x="545" y="122" width="133" height="14" rx="2" fill="#091A28" opacity="0.8"/>
+          <!-- Dashboard lights dots -->
+          <circle cx="558" cy="129" r="2" fill="#29ABE2" opacity="0.5"/>
+          <circle cx="567" cy="129" r="2" fill="#29ABE2" opacity="0.3"/>
+          <circle cx="676" cy="129" r="2" fill="#F5C842" opacity="0.4"/>
+
+          <!-- ====== DESTINATION DISPLAY ====== -->
+          <rect x="541" y="12" width="148" height="14" rx="3" fill="#010810"/>
+          <rect x="543" y="13" width="144" height="11" rx="2" fill="#000C16"/>
+          <text id="destText" x="615" y="22" font-family="'Courier New',monospace" font-size="7.5" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="1.2" opacity="0.9">LINIE 261 · ESSLINGEN HBF</text>
+
+          <!-- ====== FISCHLE BRANDING ====== -->
+          <!-- Main bold Fischle blue stripe -->
+          <rect x="44" y="128" width="647" height="12" fill="#29ABE2"/>
+          <!-- Thin accent line above stripe -->
+          <rect x="44" y="126" width="647" height="2" fill="rgba(41,171,226,0.4)"/>
+          <!-- Company name - large, white, proud -->
+          <text x="295" y="122" font-family="'Barlow Condensed',sans-serif" font-size="36" font-weight="900" fill="white" text-anchor="middle" letter-spacing="14" opacity="0.97">FISCHLE</text>
+          <!-- Subtitle GRUPPE right below in Fischle blue -->
+          <text x="295" y="126" font-family="'Barlow Condensed',sans-serif" font-size="7" font-weight="700" fill="#29ABE2" text-anchor="middle" letter-spacing="10" opacity="0.85">G R U P P E</text>
+
+          <!-- ====== FRONT DOOR (Citaro fold-out) ====== -->
+          <g id="frontDoorGroup" class="">
+            <!-- Door frame -->
+            <rect x="44" y="94" width="2" height="58" fill="#29ABE2" opacity="0.5"/>
+            <rect x="44" y="151" width="75" height="1" fill="#29ABE2" opacity="0.3"/>
+            <!-- Left panel -->
+            <rect id="doorFrontL" x="46" y="94" width="36" height="58" rx="2" fill="#091825" stroke="#1A3A55" stroke-width="1" class="bus-door bus-door-l"/>
+            <!-- Right panel -->
+            <rect id="doorFrontR" x="82" y="94" width="36" height="58" rx="2" fill="#091825" stroke="#1A3A55" stroke-width="1" class="bus-door bus-door-r"/>
+            <!-- Door line between panels -->
+            <line x1="82" y1="94" x2="82" y2="152" stroke="#29ABE2" stroke-width="1" opacity="0.4"/>
+            <!-- Step indicator -->
+            <rect x="44" y="180" width="76" height="6" rx="0" fill="#29ABE2" opacity="0.15"/>
+          </g>
+
+          <!-- Middle door -->
+          <rect x="346" y="94" width="1.5" height="58" fill="#29ABE2" opacity="0.4"/>
+          <rect x="347" y="94" width="35" height="58" rx="2" fill="#091825" stroke="#1A3A55" stroke-width="0.8"/>
+          <rect x="382" y="94" width="35" height="58" rx="2" fill="#091825" stroke="#1A3A55" stroke-width="0.8"/>
+          <line x1="382" y1="94" x2="382" y2="152" stroke="#29ABE2" stroke-width="0.8" opacity="0.35"/>
+
+          <!-- ====== HEADLIGHTS (LED style, Mercedes Citaro front) ====== -->
+          <!-- DRL strip (modern LED) -->
+          <rect x="648" y="62" width="36" height="5" rx="2" fill="#FFE8A0" opacity="0.95" id="drl"/>
+          <rect x="648" y="70" width="36" height="5" rx="2" fill="#FFE8A0" opacity="0.6"/>
+          <!-- Main beam housing -->
+          <rect x="648" y="80" width="36" height="18" rx="3" fill="#FFE8A0" opacity="0.85" id="beam"/>
+          <!-- Headlight glow halos -->
+          <ellipse cx="666" cy="66" rx="26" ry="18" fill="url(#cHL)" opacity="0.35" class="hl-glow"/>
+          <ellipse cx="666" cy="90" rx="28" ry="22" fill="url(#cHL)" opacity="0.2" class="hl-glow"/>
+          <!-- Light beam (forward) -->
+          <path d="M684,70 L740,50 L740,115 L684,100 Z" fill="url(#cHL)" opacity="0.06" class="hl-glow"/>
+
+          <!-- ====== TAIL LIGHTS ====== -->
+          <rect x="45" y="52" width="8" height="28" rx="2" fill="#CC1500" opacity="0.9"/>
+          <rect x="45" y="83" width="8" height="16" rx="2" fill="#FF2200" opacity="0.55"/>
+          <!-- Tail reflector -->
+          <rect x="45" y="100" width="8" height="8" rx="1" fill="#FF8800" opacity="0.4"/>
+
+          <!-- ====== UNDERBODY DETAILS ====== -->
+          <!-- Exhaust / underpanel detail -->
+          <rect x="44" y="184" width="646" height="4" rx="0" fill="#040C14"/>
+          <!-- Mirror on right -->
+          <rect x="684" y="50" width="12" height="8" rx="2" fill="#0F2030" stroke="#29ABE2" stroke-width="0.5" opacity="0.7"/>
+          <line x1="686" y1="50" x2="686" y2="42" stroke="#1A3A55" stroke-width="1.5"/>
+
+          <!-- ====== MERCEDES STAR (front) ====== -->
+          <g transform="translate(660,168)" opacity="0.55">
+            <circle r="7" fill="none" stroke="#29ABE2" stroke-width="1.2"/>
+            <circle r="2.5" fill="#29ABE2" opacity="0.6"/>
+            <line x1="0" y1="-7" x2="0" y2="-2.5" stroke="#29ABE2" stroke-width="1.2"/>
+            <line x1="0" y1="2.5" x2="0" y2="7" stroke="#29ABE2" stroke-width="1.2"/>
+            <line x1="6.06" y1="3.5" x2="2.17" y2="1.25" stroke="#29ABE2" stroke-width="1.2"/>
+            <line x1="-6.06" y1="3.5" x2="-2.17" y2="1.25" stroke="#29ABE2" stroke-width="1.2"/>
+            <line x1="6.06" y1="-3.5" x2="2.17" y2="-1.25" stroke="#29ABE2" stroke-width="1.2"/>
+            <line x1="-6.06" y1="-3.5" x2="-2.17" y2="-1.25" stroke="#29ABE2" stroke-width="1.2"/>
+          </g>
+
+          <!-- ====== FRONT BUMPER ====== -->
+          <path d="M648,183 Q668,180 688,168 L690,186 L44,186 Z" fill="#060F1A"/>
+          <rect x="44" y="183" width="646" height="3" fill="#0A1825"/>
+
+          <!-- ====== WHEELS (6-spoke Citaro style) ====== -->
+          <!-- Rear wheel -->
+          <g id="wheelRear" class="bus-wheel" style="transform-origin:128px 198px">
+            <circle cx="128" cy="198" r="28" fill="#080F18" stroke="#1A2E42" stroke-width="2"/>
+            <circle cx="128" cy="198" r="22" fill="#0A1620" stroke="#243E58" stroke-width="1.5"/>
+            <circle cx="128" cy="198" r="10" fill="#132030"/>
+            <circle cx="128" cy="198" r="5.5" fill="#29ABE2" opacity="0.85"/>
+            <circle cx="128" cy="198" r="3" fill="#1A3A55"/>
+            <!-- 6 spokes -->
+            <line x1="128" y1="172" x2="128" y2="184" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <line x1="128" y1="212" x2="128" y2="224" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <line x1="104" y1="184" x2="114" y2="191" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <line x1="142" y1="205" x2="152" y2="212" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <line x1="104" y1="212" x2="114" y2="205" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <line x1="142" y1="191" x2="152" y2="184" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <!-- Rim ring -->
+            <circle cx="128" cy="198" r="22" fill="none" stroke="#29ABE2" stroke-width="0.8" opacity="0.4"/>
+          </g>
+
+          <!-- Front wheel -->
+          <g id="wheelFront" class="bus-wheel" style="transform-origin:574px 198px">
+            <circle cx="574" cy="198" r="28" fill="#080F18" stroke="#1A2E42" stroke-width="2"/>
+            <circle cx="574" cy="198" r="22" fill="#0A1620" stroke="#243E58" stroke-width="1.5"/>
+            <circle cx="574" cy="198" r="10" fill="#132030"/>
+            <circle cx="574" cy="198" r="5.5" fill="#29ABE2" opacity="0.85"/>
+            <circle cx="574" cy="198" r="3" fill="#1A3A55"/>
+            <!-- 6 spokes -->
+            <line x1="574" y1="172" x2="574" y2="184" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <line x1="574" y1="212" x2="574" y2="224" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <line x1="550" y1="184" x2="560" y2="191" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <line x1="588" y1="205" x2="598" y2="212" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <line x1="550" y1="212" x2="560" y2="205" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <line x1="588" y1="191" x2="598" y2="184" stroke="#29ABE2" stroke-width="2" opacity="0.55"/>
+            <!-- Rim ring -->
+            <circle cx="574" cy="198" r="22" fill="none" stroke="#29ABE2" stroke-width="0.8" opacity="0.4"/>
+          </g>
+
+          <!-- Wheel arch shadows -->
+          <path d="M100,186 Q100,172 128,170 Q156,172 156,186 Z" fill="#06101A"/>
+          <path d="M546,186 Q546,172 574,170 Q602,172 602,186 Z" fill="#06101A"/>
+
         </svg>
       </div>
     </div>
@@ -1079,27 +1279,60 @@ window.addEventListener('scroll', () => {
   draw();
 })();
 
-// BUS DOOR ANIMATION
+// BUS ANIMATION SEQUENCE
 (function() {
   const busWrap = document.getElementById('busWrap');
   if (!busWrap) return;
-  const doorL = document.getElementById('doorL');
-  const doorR = document.getElementById('doorR');
-  let doorsOpen = false;
+  const wRear = document.getElementById('wheelRear');
+  const wFront = document.getElementById('wheelFront');
+  const frontDoor = document.getElementById('frontDoorGroup');
+
+  // Phase 1: Wheels spin fast during entry (starts immediately)
+  // CSS handles the spin via .bus-wheel class
+
+  // Phase 2: Bus arrives (~4.5s after load) – slow wheels, then stop
   setTimeout(() => {
-    if (!doorL || !doorR) return;
-    doorsOpen = true;
-    doorL.style.transition = 'transform 0.6s cubic-bezier(.4,0,.2,1)';
-    doorR.style.transition = 'transform 0.6s cubic-bezier(.4,0,.2,1)';
-    doorL.style.transformOrigin = 'left center';
-    doorR.style.transformOrigin = 'right center';
-    doorL.style.transform = 'scaleX(0.05)';
-    doorR.style.transform = 'scaleX(0.05)';
-    setTimeout(() => {
-      doorL.style.transform = 'scaleX(1)';
-      doorR.style.transform = 'scaleX(1)';
-    }, 1800);
-  }, 3800);
+    if (wRear) wRear.classList.add('slow');
+    if (wFront) wFront.classList.add('slow');
+  }, 4000);
+
+  setTimeout(() => {
+    if (wRear) wRear.classList.add('stopped');
+    if (wFront) wFront.classList.add('stopped');
+    // Start idle float after parking
+    busWrap.classList.add('bus-idle');
+  }, 4800);
+
+  // Phase 3: Front door opens (fold-out, Citaro style)
+  setTimeout(() => {
+    if (frontDoor) frontDoor.classList.add('door-open');
+    // Briefly show interior light effect
+    const dashLight = document.querySelector('#busWrap rect[fill="#091A28"]');
+    if (dashLight) {
+      dashLight.style.transition = 'opacity 0.4s';
+      dashLight.style.fill = '#1A3A5C';
+      setTimeout(() => { if (dashLight) dashLight.style.fill = '#091A28'; }, 600);
+    }
+  }, 5200);
+
+  // Phase 4: Door closes after 3s
+  setTimeout(() => {
+    if (frontDoor) frontDoor.classList.remove('door-open');
+  }, 8400);
+
+  // Phase 5: Destination display – subtle flicker effect
+  setTimeout(() => {
+    const dest = document.getElementById('destText');
+    if (!dest) return;
+    let flicks = 0;
+    const flicker = setInterval(() => {
+      dest.style.opacity = dest.style.opacity === '0.1' ? '0.9' : '0.1';
+      if (++flicks >= 6) {
+        clearInterval(flicker);
+        dest.style.opacity = '0.9';
+      }
+    }, 80);
+  }, 4600);
 })();
 
 // SCROLL REVEAL
