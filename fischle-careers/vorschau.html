@@ -53,7 +53,7 @@ img{max-width:100%}
 /* ── HERO (dark) ── */
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;
   align-items:center;justify-content:center;overflow:hidden;
-  padding:100px 32px 0;background:var(--dark)}
+  padding:100px 32px 0;background:linear-gradient(180deg,#081C38 0%,#0C2E58 18%,#104880 42%,#1A7EC0 68%,#74C8E8 88%,#D8F0F8 100%)}
 canvas#stars{position:absolute;inset:0;pointer-events:none}
 .hero-inner{position:relative;z-index:2;text-align:center;max-width:920px}
 .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;
@@ -70,24 +70,23 @@ canvas#stars{position:absolute;inset:0;pointer-events:none}
 
 /* ── BUS SCENE ── */
 .bus-scene{position:relative;width:100%;max-width:980px;margin:52px auto 0;
-  height:250px;overflow:visible;opacity:0;animation:fadeUp .9s 1s forwards}
+  height:250px;overflow:visible;opacity:1}
 .bus-track{position:absolute;bottom:22px;left:-8%;right:-8%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(27,157,216,.25) 20%,
-  rgba(27,157,216,.45) 50%,rgba(27,157,216,.25) 80%,transparent)}
+  background:linear-gradient(90deg,transparent,rgba(10,30,52,.18) 20%,
+  rgba(10,30,52,.32) 50%,rgba(10,30,52,.18) 80%,transparent)}
 .bus-wrap{position:absolute;bottom:0;left:50%;
-  transform:translateX(-50%) translateY(10px);opacity:0;
-  animation:busFadeIn 1.5s cubic-bezier(.16,1,.3,1) 1.3s forwards}
-@keyframes busFadeIn{
-  from{opacity:0;transform:translateX(-50%) translateY(14px) scale(.97)}
-  to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
-}
+  transform:translateX(calc(-50% + 900px));
+  animation:busRollIn 2s cubic-bezier(.22,1,.36,1) 0.5s forwards}
+@keyframes busRollIn{
+  0%{transform:translateX(calc(-50% + 900px))}
+  100%{transform:translateX(-50%)}}
 .bus-wrap.bus-idle{
-  animation:busFadeIn 1.5s cubic-bezier(.16,1,.3,1) 1.3s forwards,
-  busFloat 7s ease-in-out 3s infinite
-}
-@keyframes busFloat{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-3px)}}
+  animation:busRollIn 2s cubic-bezier(.22,1,.36,1) 0.5s forwards,
+  busIdle 5s ease-in-out 3.2s infinite}
+@keyframes busIdle{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-2px)}}
 .bus-svg{width:640px}
 .bus-wheel{transform-box:fill-box;transform-origin:center}
+.bus-wheel.rolling{animation:wheelSpin 0.4s linear infinite}
 .bus-wheel.spinning{animation:wheelSpin .7s linear infinite}
 .bus-wheel.slow{animation:wheelSpin 2.2s linear infinite}
 @keyframes wheelSpin{to{transform:rotate(360deg)}}
@@ -405,136 +404,142 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);
         <svg class="bus-svg" viewBox="0 0 740 230" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="cUpper" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#0D1F34"/>
-              <stop offset="100%" stop-color="#070F1C"/>
+              <stop offset="0%" stop-color="#D0DCE6"/>
+              <stop offset="100%" stop-color="#A8BAC8"/>
             </linearGradient>
             <linearGradient id="cLower" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#0A1A2C"/>
-              <stop offset="100%" stop-color="#050D18"/>
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="100%" stop-color="#EEF4F8"/>
             </linearGradient>
             <linearGradient id="cWin" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1E5A8A" stop-opacity="0.55"/>
-              <stop offset="35%" stop-color="#0E3560" stop-opacity="0.25"/>
-              <stop offset="100%" stop-color="#061525" stop-opacity="0.08"/>
+              <stop offset="0%" stop-color="#6AB4D8" stop-opacity="0.88"/>
+              <stop offset="50%" stop-color="#4892BE" stop-opacity="0.72"/>
+              <stop offset="100%" stop-color="#2A6898" stop-opacity="0.55"/>
             </linearGradient>
             <linearGradient id="cWinR" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stop-color="rgba(41,130,180,0.12)"/>
               <stop offset="40%" stop-color="rgba(41,130,180,0)"/>
             </linearGradient>
             <linearGradient id="cWS" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1A4E7A" stop-opacity="0.65"/>
-              <stop offset="100%" stop-color="#060E1A" stop-opacity="0.15"/>
+              <stop offset="0%" stop-color="#5A9CC4" stop-opacity="0.92"/>
+              <stop offset="100%" stop-color="#3A78A8" stop-opacity="0.72"/>
             </linearGradient>
             <radialGradient id="cHL" cx="50%" cy="40%" r="60%">
               <stop offset="0%" stop-color="#FFFDE8"/>
               <stop offset="60%" stop-color="#FFE060" stop-opacity="0.45"/>
               <stop offset="100%" stop-color="#FFAA00" stop-opacity="0"/>
             </radialGradient>
+            <linearGradient id="cDoor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#485E72"/>
+              <stop offset="53%" stop-color="#485E72"/>
+              <stop offset="55%" stop-color="#F5F8FA"/>
+              <stop offset="100%" stop-color="#E8EEF4"/>
+            </linearGradient>
             <radialGradient id="cGnd" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stop-color="#1B9DD8" stop-opacity="0.14"/>
               <stop offset="100%" stop-color="#1B9DD8" stop-opacity="0"/>
             </radialGradient>
           </defs>
 
-          <ellipse cx="368" cy="222" rx="325" ry="9" fill="rgba(0,0,0,0.5)"/>
+          <ellipse cx="368" cy="222" rx="325" ry="9" fill="rgba(0,0,0,0.3)"/>
           <ellipse cx="368" cy="218" rx="295" ry="15" fill="url(#cGnd)"/>
           <path d="M36,179 L36,34 Q36,17 54,16 L646,16 Q664,16 674,28 L686,52 L690,100 L690,179 Z" fill="url(#cUpper)"/>
-          <rect x="54" y="14" width="580" height="4" rx="2" fill="#0D2040" opacity="0.6"/>
-          <rect x="120" y="10" width="340" height="7" rx="2" fill="#0A1828" stroke="#1A3450" stroke-width="0.7"/>
-          <rect x="160" y="9" width="260" height="4" rx="1" fill="#122035" opacity="0.8"/>
-          <rect x="36" y="20" width="610" height="104" fill="#050C17"/>
+          <rect x="54" y="14" width="580" height="4" rx="2" fill="#9AAAB8" opacity="0.9"/>
+          <rect x="120" y="10" width="340" height="7" rx="2" fill="#B0C2CC" stroke="#8898A8" stroke-width="0.7"/>
+          <rect x="160" y="9" width="260" height="4" rx="1" fill="#C2D0D8" opacity="0.9"/>
+          <rect x="36" y="20" width="610" height="104" fill="#485E72"/>
 
           <!-- Rear door glass -->
-          <rect x="40" y="24" width="76" height="96" rx="2" fill="#030A14"/>
+          <rect x="40" y="24" width="76" height="96" rx="2" fill="#2A5880"/>
           <rect x="40" y="24" width="76" height="96" rx="2" fill="url(#cWin)"/>
           <line x1="78" y1="24" x2="78" y2="120" stroke="#0A1D30" stroke-width="2.5"/>
           <rect x="42" y="26" width="18" height="92" rx="1" fill="url(#cWinR)"/>
 
           <!-- Win A -->
-          <rect x="120" y="24" width="74" height="96" rx="2" fill="#030A14"/>
+          <rect x="120" y="24" width="74" height="96" rx="2" fill="#2A5880"/>
           <rect x="120" y="24" width="74" height="96" rx="2" fill="url(#cWin)"/>
           <rect x="122" y="26" width="20" height="92" rx="1" fill="url(#cWinR)"/>
           <!-- Win B -->
-          <rect x="198" y="24" width="74" height="96" rx="2" fill="#030A14"/>
+          <rect x="198" y="24" width="74" height="96" rx="2" fill="#2A5880"/>
           <rect x="198" y="24" width="74" height="96" rx="2" fill="url(#cWin)"/>
           <rect x="200" y="26" width="20" height="92" rx="1" fill="url(#cWinR)"/>
           <!-- Win C -->
-          <rect x="276" y="24" width="74" height="96" rx="2" fill="#030A14"/>
+          <rect x="276" y="24" width="74" height="96" rx="2" fill="#2A5880"/>
           <rect x="276" y="24" width="74" height="96" rx="2" fill="url(#cWin)"/>
           <rect x="278" y="26" width="20" height="92" rx="1" fill="url(#cWinR)"/>
 
           <!-- Middle door glass -->
-          <rect x="358" y="24" width="82" height="96" rx="2" fill="#030A14"/>
+          <rect x="358" y="24" width="82" height="96" rx="2" fill="#2A5880"/>
           <rect x="358" y="24" width="82" height="96" rx="2" fill="url(#cWin)"/>
           <line x1="399" y1="24" x2="399" y2="120" stroke="#0A1D30" stroke-width="2.5"/>
           <rect x="360" y="26" width="18" height="92" rx="1" fill="url(#cWinR)"/>
 
           <!-- Win D -->
-          <rect x="448" y="24" width="62" height="96" rx="2" fill="#030A14"/>
+          <rect x="448" y="24" width="62" height="96" rx="2" fill="#2A5880"/>
           <rect x="448" y="24" width="62" height="96" rx="2" fill="url(#cWin)"/>
           <rect x="450" y="26" width="16" height="92" rx="1" fill="url(#cWinR)"/>
           <!-- Win E -->
-          <rect x="514" y="24" width="62" height="96" rx="2" fill="#030A14"/>
+          <rect x="514" y="24" width="62" height="96" rx="2" fill="#2A5880"/>
           <rect x="514" y="24" width="62" height="96" rx="2" fill="url(#cWin)"/>
           <rect x="516" y="26" width="16" height="92" rx="1" fill="url(#cWinR)"/>
 
           <!-- Front door glass -->
-          <rect x="582" y="24" width="62" height="96" rx="2" fill="#030A14"/>
+          <rect x="582" y="24" width="62" height="96" rx="2" fill="#2A5880"/>
           <rect x="582" y="24" width="62" height="96" rx="2" fill="url(#cWin)"/>
           <rect x="584" y="26" width="16" height="92" rx="1" fill="url(#cWinR)"/>
 
           <!-- Windshield -->
-          <path d="M648,20 L670,20 Q682,20 688,34 L690,56 L690,140 L648,140 Z" fill="#020810"/>
+          <path d="M648,20 L670,20 Q682,20 688,34 L690,56 L690,140 L648,140 Z" fill="#2A5888"/>
           <path d="M650,22 L668,22 Q679,22 685,35 L687,57 L687,138 L650,138 Z" fill="url(#cWS)"/>
           <line x1="652" y1="136" x2="684" y2="104" stroke="#091825" stroke-width="2.2" stroke-linecap="round" opacity="0.6"/>
-          <rect x="646" y="20" width="4" height="120" fill="#0A1F35" opacity="0.9"/>
-          <rect x="650" y="120" width="38" height="18" fill="#030D18"/>
-          <rect x="652" y="122" width="34" height="12" rx="2" fill="#081828" opacity="0.85"/>
+          <rect x="646" y="20" width="4" height="120" fill="#485E72" opacity="0.9"/>
+          <rect x="650" y="120" width="38" height="18" fill="#2A3848"/>
+          <rect x="652" y="122" width="34" height="12" rx="2" fill="#1A2838" opacity="0.85"/>
           <circle cx="659" cy="128" r="1.8" fill="#1B9DD8" opacity="0.5"/>
           <circle cx="666" cy="128" r="1.8" fill="#1B9DD8" opacity="0.3"/>
           <circle cx="682" cy="128" r="1.6" fill="#E8A020" opacity="0.4"/>
 
           <!-- Destination display -->
-          <rect x="580" y="11" width="108" height="13" rx="2" fill="#010810"/>
-          <rect x="582" y="12" width="104" height="10" rx="1.5" fill="#000C18"/>
-          <text id="destText" x="634" y="20.5" font-family="'Courier New',monospace" font-size="7" font-weight="700" fill="#1B9DD8" text-anchor="middle" letter-spacing="1" opacity="0.9">LINIE 116 · PLOCHINGEN</text>
+          <rect x="580" y="11" width="108" height="13" rx="2" fill="#0A1828"/>
+          <rect x="582" y="12" width="104" height="10" rx="1.5" fill="#040F22"/>
+          <text id="destText" x="634" y="20.5" font-family="'Courier New',monospace" font-size="7" font-weight="700" fill="#1B9DD8" text-anchor="middle" letter-spacing="1" opacity="0.9">LINIE 141 · PLOCHINGEN</text>
 
           <!-- Belt line -->
           <rect x="36" y="123" width="614" height="3" fill="#1B9DD8"/>
-          <rect x="36" y="123" width="614" height="0.8" fill="rgba(255,255,255,0.18)"/>
-          <rect x="36" y="126" width="614" height="5" fill="rgba(0,0,0,0.18)"/>
+          <rect x="36" y="123" width="614" height="0.8" fill="rgba(255,255,255,0.55)"/>
+          <rect x="36" y="126" width="614" height="1" fill="#0E6FA0" opacity="0.4"/>
           <!-- Lower panel -->
           <rect x="36" y="126" width="614" height="54" fill="url(#cLower)"/>
 
           <!-- FISCHLE branding – centered between rear door (x=116) and middle door (x=354) -->
-          <text x="235" y="160" font-family="'Barlow Condensed',sans-serif" font-size="42" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="5" opacity="0.97">FISCHLE</text>
+          <text x="235" y="160" font-family="'Barlow Condensed',sans-serif" font-size="42" font-weight="900" fill="#0A1E34" text-anchor="middle" letter-spacing="5">FISCHLE</text>
           <line x1="148" y1="166" x2="322" y2="166" stroke="#1B9DD8" stroke-width="1.5" opacity="0.6"/>
           <text x="235" y="176" font-family="'Barlow Condensed',sans-serif" font-size="8" font-weight="700" fill="#1B9DD8" text-anchor="middle" letter-spacing="6">G R U P P E</text>
-          <text x="86" y="155" font-family="'Barlow Condensed',sans-serif" font-size="8" font-weight="700" fill="rgba(27,157,216,0.45)" text-anchor="middle" letter-spacing="1.5">EST.</text>
-          <text x="86" y="167" font-family="'Barlow Condensed',sans-serif" font-size="10" font-weight="800" fill="rgba(27,157,216,0.5)" text-anchor="middle" letter-spacing="1">1932</text>
+          <text x="86" y="155" font-family="'Barlow Condensed',sans-serif" font-size="8" font-weight="700" fill="rgba(10,30,52,0.38)" text-anchor="middle" letter-spacing="1.5">EST.</text>
+          <text x="86" y="167" font-family="'Barlow Condensed',sans-serif" font-size="10" font-weight="800" fill="rgba(10,30,52,0.42)" text-anchor="middle" letter-spacing="1">1932</text>
 
           <!-- Front door animated -->
           <g id="frontDoorGroup">
             <rect x="578" y="126" width="1.5" height="54" fill="#1B9DD8" opacity="0.4"/>
-            <rect id="doorFrontL" x="580" y="24" width="32" height="156" rx="1" fill="#060F1C" stroke="#122030" stroke-width="0.8" class="bus-door bus-door-l"/>
-            <rect id="doorFrontR" x="612" y="24" width="30" height="156" rx="1" fill="#060F1C" stroke="#122030" stroke-width="0.8" class="bus-door bus-door-r"/>
+            <rect id="doorFrontL" x="580" y="24" width="32" height="156" rx="1" fill="url(#cDoor)" stroke="#3A5068" stroke-width="0.8" class="bus-door bus-door-l"/>
+            <rect id="doorFrontR" x="612" y="24" width="30" height="156" rx="1" fill="url(#cDoor)" stroke="#3A5068" stroke-width="0.8" class="bus-door bus-door-r"/>
             <line x1="612" y1="24" x2="612" y2="180" stroke="#1B9DD8" stroke-width="0.8" opacity="0.35"/>
             <rect x="578" y="176" width="64" height="4" fill="#1B9DD8" opacity="0.12"/>
           </g>
 
           <!-- Middle door static -->
           <rect x="354" y="126" width="1.5" height="54" fill="#1B9DD8" opacity="0.4"/>
-          <rect x="356" y="24" width="43" height="156" rx="1" fill="#060F1C" stroke="#0D1E30" stroke-width="0.7"/>
-          <rect x="399" y="24" width="43" height="156" rx="1" fill="#060F1C" stroke="#0D1E30" stroke-width="0.7"/>
+          <rect x="356" y="24" width="43" height="156" rx="1" fill="url(#cDoor)" stroke="#3A5068" stroke-width="0.7"/>
+          <rect x="399" y="24" width="43" height="156" rx="1" fill="url(#cDoor)" stroke="#3A5068" stroke-width="0.7"/>
           <line x1="399" y1="24" x2="399" y2="180" stroke="#1B9DD8" stroke-width="0.8" opacity="0.3"/>
           <!-- Rear door static -->
           <rect x="36" y="126" width="1.5" height="54" fill="#1B9DD8" opacity="0.35"/>
-          <rect x="38" y="24" width="40" height="156" rx="1" fill="#060F1C" stroke="#0D1E30" stroke-width="0.7"/>
-          <rect x="78" y="24" width="40" height="156" rx="1" fill="#060F1C" stroke="#0D1E30" stroke-width="0.7"/>
+          <rect x="38" y="24" width="40" height="156" rx="1" fill="url(#cDoor)" stroke="#3A5068" stroke-width="0.7"/>
+          <rect x="78" y="24" width="40" height="156" rx="1" fill="url(#cDoor)" stroke="#3A5068" stroke-width="0.7"/>
           <line x1="78" y1="24" x2="78" y2="180" stroke="#1B9DD8" stroke-width="0.8" opacity="0.3"/>
 
           <!-- Underbody -->
-          <rect x="36" y="178" width="654" height="4" rx="0" fill="#040B14"/>
+          <rect x="36" y="178" width="654" height="4" rx="0" fill="#2A3848"/>
           <!-- Orange reflectors -->
           <rect x="65" y="168" width="12" height="5" rx="1" fill="#FF8800" opacity="0.7"/>
           <rect x="200" y="168" width="12" height="5" rx="1" fill="#FF8800" opacity="0.6"/>
@@ -542,7 +547,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);
           <rect x="480" y="168" width="12" height="5" rx="1" fill="#FF8800" opacity="0.6"/>
 
           <!-- Tail lights -->
-          <rect x="36" y="34" width="6" height="44" rx="2" fill="#8B0000" opacity="0.9"/>
+          <rect x="36" y="34" width="6" height="44" rx="2" fill="#CC0000" opacity="0.98"/>
           <rect x="37" y="36" width="4" height="8" rx="1" fill="#FF2200" opacity="0.95"/>
           <rect x="37" y="46" width="4" height="8" rx="1" fill="#FF2200" opacity="0.85"/>
           <rect x="37" y="56" width="4" height="8" rx="1" fill="#FF2200" opacity="0.75"/>
@@ -561,7 +566,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);
           <rect x="680" y="35" width="14" height="8" rx="2" fill="#0F2030" stroke="#1B9DD8" stroke-width="0.6" opacity="0.8"/>
 
           <!-- Mercedes star -->
-          <g transform="translate(666,174)" opacity="0.5">
+          <g transform="translate(666,174)" opacity="0.85">
             <circle r="7" fill="none" stroke="#1B9DD8" stroke-width="1.1"/>
             <circle r="2.5" fill="#1B9DD8" opacity="0.55"/>
             <line x1="0" y1="-7" x2="0" y2="-2.5" stroke="#1B9DD8" stroke-width="1.1"/>
@@ -571,40 +576,40 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);
             <line x1="6.06" y1="-3.5" x2="2.17" y2="-1.25" stroke="#1B9DD8" stroke-width="1.1"/>
             <line x1="-6.06" y1="-3.5" x2="-2.17" y2="-1.25" stroke="#1B9DD8" stroke-width="1.1"/>
           </g>
-          <path d="M648,177 Q662,174 680,162 L690,179 L36,179 Z" fill="#050D18"/>
-          <rect x="36" y="177" width="654" height="3" fill="#081520"/>
+          <path d="M648,177 Q662,174 680,162 L690,179 L36,179 Z" fill="#2A3848"/>
+          <rect x="36" y="177" width="654" height="3" fill="#1E2C3C"/>
 
           <!-- Wheels -->
           <g id="wheelRear" class="bus-wheel">
-            <circle cx="152" cy="196" r="28" fill="#060D16" stroke="#132030" stroke-width="2"/>
-            <circle cx="152" cy="196" r="22" fill="#0C1C2E" stroke="#1E3A55" stroke-width="1.5"/>
-            <circle cx="152" cy="196" r="9" fill="#0F2035"/>
-            <circle cx="152" cy="196" r="5" fill="#1B9DD8" opacity="0.8"/>
-            <circle cx="152" cy="196" r="2.8" fill="#142535"/>
-            <line x1="152" y1="170" x2="152" y2="183" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <line x1="152" y1="209" x2="152" y2="222" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <line x1="128" y1="182" x2="138" y2="189" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <line x1="166" y1="203" x2="176" y2="210" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <line x1="128" y1="210" x2="138" y2="203" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <line x1="166" y1="189" x2="176" y2="182" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <circle cx="152" cy="196" r="22" fill="none" stroke="#1B9DD8" stroke-width="0.8" opacity="0.35"/>
+            <circle cx="152" cy="196" r="28" fill="#1A1E28" stroke="#303848" stroke-width="2"/>
+            <circle cx="152" cy="196" r="22" fill="#2C3A4C" stroke="#404E62" stroke-width="1.5"/>
+            <circle cx="152" cy="196" r="9" fill="#3C4C60"/>
+            <circle cx="152" cy="196" r="5" fill="#8898B0" opacity="0.95"/>
+            <circle cx="152" cy="196" r="2.8" fill="#2A3848"/>
+            <line x1="152" y1="170" x2="152" y2="183" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <line x1="152" y1="209" x2="152" y2="222" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <line x1="128" y1="182" x2="138" y2="189" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <line x1="166" y1="203" x2="176" y2="210" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <line x1="128" y1="210" x2="138" y2="203" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <line x1="166" y1="189" x2="176" y2="182" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <circle cx="152" cy="196" r="22" fill="none" stroke="#6070888" stroke-width="0.8" opacity="0.5"/>
           </g>
           <g id="wheelFront" class="bus-wheel">
-            <circle cx="556" cy="196" r="28" fill="#060D16" stroke="#132030" stroke-width="2"/>
-            <circle cx="556" cy="196" r="22" fill="#0C1C2E" stroke="#1E3A55" stroke-width="1.5"/>
-            <circle cx="556" cy="196" r="9" fill="#0F2035"/>
-            <circle cx="556" cy="196" r="5" fill="#1B9DD8" opacity="0.8"/>
-            <circle cx="556" cy="196" r="2.8" fill="#142535"/>
-            <line x1="556" y1="170" x2="556" y2="183" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <line x1="556" y1="209" x2="556" y2="222" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <line x1="532" y1="182" x2="542" y2="189" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <line x1="570" y1="203" x2="580" y2="210" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <line x1="532" y1="210" x2="542" y2="203" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <line x1="570" y1="189" x2="580" y2="182" stroke="#1B9DD8" stroke-width="2.2" opacity="0.6"/>
-            <circle cx="556" cy="196" r="22" fill="none" stroke="#1B9DD8" stroke-width="0.8" opacity="0.35"/>
+            <circle cx="556" cy="196" r="28" fill="#1A1E28" stroke="#303848" stroke-width="2"/>
+            <circle cx="556" cy="196" r="22" fill="#2C3A4C" stroke="#404E62" stroke-width="1.5"/>
+            <circle cx="556" cy="196" r="9" fill="#3C4C60"/>
+            <circle cx="556" cy="196" r="5" fill="#8898B0" opacity="0.95"/>
+            <circle cx="556" cy="196" r="2.8" fill="#2A3848"/>
+            <line x1="556" y1="170" x2="556" y2="183" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <line x1="556" y1="209" x2="556" y2="222" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <line x1="532" y1="182" x2="542" y2="189" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <line x1="570" y1="203" x2="580" y2="210" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <line x1="532" y1="210" x2="542" y2="203" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <line x1="570" y1="189" x2="580" y2="182" stroke="#8898B0" stroke-width="2.2" opacity="0.75"/>
+            <circle cx="556" cy="196" r="22" fill="none" stroke="#607088" stroke-width="0.8" opacity="0.5"/>
           </g>
-          <path d="M122,179 Q122,166 152,164 Q182,166 182,179 Z" fill="#040C18"/>
-          <path d="M526,179 Q526,166 556,164 Q586,166 586,179 Z" fill="#040C18"/>
+          <path d="M122,179 Q122,166 152,164 Q182,166 182,179 Z" fill="#2A3848"/>
+          <path d="M526,179 Q526,166 556,164 Q586,166 586,179 Z" fill="#2A3848"/>
         </svg>
       </div>
     </div>
@@ -1161,7 +1166,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);
         <div class="story-card reveal">
           <div class="story-role">Busfahrer · 5 Jahre bei der Fischle-Gruppe</div>
           <h3>Kemal Yilmaz</h3>
-          <blockquote>"Die Fischle-Gruppe hat mir eine Chance gegeben — half mir beim Führerschein, beim Einleben. Jetzt bin ich stolz, jeden Tag auf der Linie 116 zu sein."</blockquote>
+          <blockquote>"Die Fischle-Gruppe hat mir eine Chance gegeben — half mir beim Führerschein, beim Einleben. Jetzt bin ich stolz, jeden Tag auf der Linie 141 zu sein."</blockquote>
           <div class="story-meta">🌍 Plochingen · Fischle half beim Neustart</div>
         </div>
         <div class="story-card reveal">
@@ -1325,12 +1330,21 @@ window.addEventListener('scroll', () => {
   draw();
 })();
 
-// BUS ANIMATION – professional, minimal
+// BUS ANIMATION – rolls in from right with spinning wheels, then gentle idle
 (function() {
   const busWrap = document.getElementById('busWrap');
+  const wheelR = document.getElementById('wheelRear');
+  const wheelF = document.getElementById('wheelFront');
   if (!busWrap) return;
-  // After fade-in completes, start idle float
-  setTimeout(() => { busWrap.classList.add('bus-idle'); }, 2600);
+  // Wheels spin as bus rolls in
+  if (wheelR) wheelR.classList.add('rolling');
+  if (wheelF) wheelF.classList.add('rolling');
+  // Roll-in: 2s anim + 0.5s delay = 2.5s, add 0.5s buffer
+  setTimeout(() => {
+    if (wheelR) { wheelR.classList.remove('rolling'); wheelR.classList.add('slow'); }
+    if (wheelF) { wheelF.classList.remove('rolling'); wheelF.classList.add('slow'); }
+    busWrap.classList.add('bus-idle');
+  }, 3200);
 })();
 
 // SCROLL REVEAL
